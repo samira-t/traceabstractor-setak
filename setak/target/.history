@@ -1,0 +1,142 @@
+test
+exit
+test
+exit
+test
+publish
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+publish
+exit
+publish
+test
+publish
+test
+publish
+exit
+publish
+test
+publish
+test
+publish
+test
+publish
+test
+publish
+exit
+test
+publish
+test
+publish
+test
+publish
+test
+exit
+test
+exit
+test
+publish
+test
+publish
+test
+publish
+test
+publish
+test
+publish
+test
+publish
+push
+publish
+exit
+test
+run setak.examples.sleepingbarber
+test-only setak.examples.sleepingbarber
+test-only setak.examples.sleepingbarber.BarberSpec
+test-only BarberSpec
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+test
+test-only setak.examples.sleepingbarber.BarberSpec
+exit
+test-only setak.examples.sleepingbarber.BarberSpec
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+exit
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+exit
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+test
+update
+exit
+update
+exit
+update
+compile
+update
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+update
+exit
+update
+test
+exit
+update
+test
+exit
+test
+exit
+test
+update
+exit
+update
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+exit
+test
+test-only akka.setak.examples.sleepingbarber.SleepingBarberTest
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+exit
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+compile
+test
+test-only akka.setak.examples.procreg.RegistrySpec
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+test-only akka.setak.examples.procreg.RegistrySpec
+test
+test-only akka.setak.examples.TestBoundedBufferWithProducerConsumerUsingAfterMessage
+test
+git
+git add setak

@@ -1,0 +1,5 @@
+[0m[[0minfo[0m] [0m[32mSpecTestBoundedBuffer:[0m[0m
+[0m[[0minfo[0m] [0m[32mthe current size of buffer [0m[0m
+[0m[[0minfo[0m] [0m[32m- should be one and returns value 12[0m[0m
+[0m[[0minfo[0m] [0m[32mBoth Put messages [0m[0m
+[0m[[0minfo[0m] [0m[32m- should be processed and only the first one should update the content[0m[0m

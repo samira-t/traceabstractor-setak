@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/scala"/>
+	<classpathentry excluding="main/scala/|test/scala/akka/setak/examples/akka-samples-bank/|test/scala/akka/setak/examples/akka-samples-bank/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/home/samira/Downloads/akka-actors-1.3.1/lib/akka/akka-actor-1.3.1.jar" sourcepath="/home/samira/Downloads/akka-actors-1.3.1/src/akka/akka-actor-1.3.1-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

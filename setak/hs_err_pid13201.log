@@ -1,0 +1,562 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0x7) at pc=0x0016758f, pid=13201, tid=3077966704
+#
+# JRE version: 6.0_23-b23
+# Java VM: OpenJDK Server VM (20.0-b11 mixed mode linux-x86 )
+# Derivative: IcedTea6 1.11pre
+# Distribution: Ubuntu 11.10, package 6b23~pre11-0ubuntu1.11.10.2
+# Problematic frame:
+# C  [libzip.so+0x458f]  Java_java_util_zip_ZipEntry_initFields+0xfef
+#
+# If you would like to submit a bug report, please include
+# instructions how to reproduce the bug and visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-6/
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0917a000):  JavaThread "main" [_thread_in_native, id=13202, stack(0xb7710000,0xb7761000)]
+
+siginfo:si_signo=SIGBUS: si_errno=0, si_code=2 (BUS_ADRERR), si_addr=0x8c21b150
+
+Registers:
+EAX=0x8c1133a0, EBX=0x0016aff4, ECX=0x8c21b133, EDX=0x8a700010
+ESP=0xb775d460, EBP=0xb775d4a8, ESI=0x8c115568, EDI=0x8c1133a0
+EIP=0x0016758f, EFLAGS=0x00010286, CR2=0x8c21b150
+
+Top of Stack: (sp=0xb775d460)
+0xb775d460:   00000030 8c1133a0 b775d4a8 011ad0dd
+0xb775d470:   8c113408 01634ff4 b775d4c8 01178b69
+0xb775d480:   b775d4c8 8c1133a0 0016aff4 8a3a0ed8
+0xb775d490:   8c113408 00000010 0016754d 0016aff4
+0xb775d4a0:   8c115564 8c1133a0 b775d4e8 00167f92
+0xb775d4b0:   8a3f7860 b775d53a 0917a000 00000000
+0xb775d4c0:   b775d4dc 0917a000 8a3f7828 61c2df3b
+0xb775d4d0:   b775d50a 0917a85c 0917a000 0016aff4 
+
+Instructions: (pc=0x0016758f)
+0x0016756f:   00 c7 00 00 00 00 00 c7 40 24 00 00 00 00 c7 40
+0x0016757f:   20 00 00 00 00 8b 45 dc 8b 0e 2b 48 1c 03 48 10
+0x0016758f:   0f b6 51 1d 0f b6 41 1c 0f b6 71 0e c1 e2 08 09
+0x0016759f:   c2 0f b6 41 0d 89 55 e0 0f b6 51 1e c1 e0 08 88 
+
+Register to memory mapping:
+
+EAX=0x8c1133a0 is an unknown value
+EBX=0x0016aff4: <offset 0x7ff4> in /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so at 0x00163000
+ECX=0x8c21b133 is an unknown value
+EDX=0x8a700010 is an unknown value
+ESP=0xb775d460 is pointing into the stack for thread: 0x0917a000
+EBP=0xb775d4a8 is pointing into the stack for thread: 0x0917a000
+ESI=0x8c115568 is an unknown value
+EDI=0x8c1133a0 is an unknown value
+
+
+Stack: [0xb7710000,0xb7761000],  sp=0xb775d460,  free space=309k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libzip.so+0x458f]  Java_java_util_zip_ZipEntry_initFields+0xfef
+C  [libzip.so+0x4f92]  ZIP_GetEntry+0xb2
+C  [libzip.so+0x2fe4]  Java_java_util_zip_ZipFile_getEntry+0x104
+J  java.util.zip.ZipFile.getEntry(JLjava/lang/String;Z)J
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J  java.util.zip.ZipFile.getEntry(JLjava/lang/String;Z)J
+J  java.util.jar.JarFile.getEntry(Ljava/lang/String;)Ljava/util/zip/ZipEntry;
+J  sun.misc.URLClassPath.getResource(Ljava/lang/String;Z)Lsun/misc/Resource;
+J  java.net.URLClassLoader$1.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedExceptionAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.net.URLClassLoader.findClass(Ljava/lang/String;)Ljava/lang/Class;
+J  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;
+j  sun.misc.Launcher$AppClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+36
+J  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;
+j  xsbt.boot.BootFilteredLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;+48
+J  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;
+J  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;
+J  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;+3
+v  ~StubRoutines::call_stub
+j  java.lang.ClassLoader.defineClass1(Ljava/lang/String;[BIILjava/security/ProtectionDomain;Ljava/lang/String;)Ljava/lang/Class;+0
+j  java.lang.ClassLoader.defineClass(Ljava/lang/String;[BIILjava/security/ProtectionDomain;)Ljava/lang/Class;+30
+j  java.security.SecureClassLoader.defineClass(Ljava/lang/String;[BIILjava/security/CodeSource;)Ljava/lang/Class;+27
+j  java.net.URLClassLoader.defineClass(Ljava/lang/String;Lsun/misc/Resource;)Ljava/lang/Class;+253
+J  java.net.URLClassLoader$1.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedExceptionAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.net.URLClassLoader.findClass(Ljava/lang/String;)Ljava/lang/Class;
+J  java.lang.ClassLoader.loadClass(Ljava/lang/String;Z)Ljava/lang/Class;
+j  java.lang.ClassLoader.loadClass(Ljava/lang/String;)Ljava/lang/Class;+3
+v  ~StubRoutines::call_stub
+j  sbt.State$$anon$1.exit(Z)Lsbt/State;+5
+j  sbt.BuiltinCommands$.doExit(Lsbt/State;)Lsbt/State;+19
+j  sbt.BuiltinCommands$$anonfun$exit$1.apply(Lsbt/State;)Lsbt/State;+4
+j  sbt.BuiltinCommands$$anonfun$exit$1.apply(Ljava/lang/Object;)Ljava/lang/Object;+5
+j  sbt.Command$$anonfun$command$1$$anonfun$apply$1.apply()Lsbt/State;+11
+j  sbt.Command$$anonfun$command$1$$anonfun$apply$1.apply()Ljava/lang/Object;+1
+j  sbt.Command$.process(Ljava/lang/String;Lsbt/State;)Lsbt/State;+49
+j  sbt.MainLoop$$anonfun$next$1$$anonfun$apply$1.apply(Ljava/lang/String;Lsbt/State;)Lsbt/State;+5
+j  sbt.MainLoop$$anonfun$next$1$$anonfun$apply$1.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+9
+j  sbt.State$$anon$1.process(Lscala/Function2;)Lsbt/State;+194
+j  sbt.MainLoop$$anonfun$next$1.apply()Lsbt/State;+18
+j  sbt.MainLoop$$anonfun$next$1.apply()Ljava/lang/Object;+1
+j  sbt.ErrorHandling$.wideConvert(Lscala/Function0;)Lscala/Either;+7
+j  sbt.MainLoop$.next(Lsbt/State;)Lsbt/State;+11
+j  sbt.MainLoop$.run(Lsbt/State;)Lsbt/MainLoop$RunNext;+34
+j  sbt.MainLoop$$anonfun$runWithNewLog$1.apply(Ljava/io/BufferedWriter;)Lsbt/MainLoop$RunNext;+49
+j  sbt.MainLoop$$anonfun$runWithNewLog$1.apply(Ljava/lang/Object;)Ljava/lang/Object;+5
+j  sbt.Using.apply(Ljava/lang/Object;Lscala/Function1;)Ljava/lang/Object;+11
+j  sbt.MainLoop$.runWithNewLog(Lsbt/State;Lsbt/GlobalLogBacking;)Lsbt/MainLoop$RunNext;+35
+j  sbt.MainLoop$.runAndClearLast(Lsbt/State;Lsbt/GlobalLogBacking;)Lsbt/MainLoop$RunNext;+5
+j  sbt.MainLoop$.runLoggedLoop(Lsbt/State;Lsbt/GlobalLogBacking;)Lxsbti/MainResult;+3
+j  sbt.MainLoop$.runLogged(Lsbt/State;)Lxsbti/MainResult;+16
+j  sbt.xMain.run(Lxsbti/AppConfiguration;)Lxsbti/MainResult;+205
+j  xsbt.boot.Launch$.run(Lxsbti/Launcher;Lxsbt/boot/RunConfiguration;)Lxsbti/MainResult;+91
+j  xsbt.boot.Launch$$anonfun$explicit$1.apply(Ljava/lang/Object;)Ljava/lang/Object;+12
+j  xsbt.boot.Launch$.launch(Lscala/Function1;Lxsbt/boot/RunConfiguration;)Lscala/Option;+2
+j  xsbt.boot.Launch$.apply(Lscala/collection/immutable/List;)Lscala/Option;+290
+j  xsbt.boot.Boot$.runImpl([Ljava/lang/String;)Lscala/Option;+15
+j  xsbt.boot.Boot$.main([Ljava/lang/String;)V+18
+j  xsbt.boot.Boot.main([Ljava/lang/String;)V+4
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x8c1cb800 JavaThread "Keep-Alive-Timer" daemon [_thread_blocked, id=13217, stack(0x8b3af000,0x8b400000)]
+  0x8c107c00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=13213, stack(0x8ba35000,0x8ba86000)]
+  0x8c105c00 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=13212, stack(0x8ba86000,0x8bb07000)]
+  0x8c103c00 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=13211, stack(0x8bb07000,0x8bb88000)]
+  0x09236c00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=13210, stack(0x8bb88000,0x8bbd9000)]
+  0x09227000 JavaThread "Finalizer" daemon [_thread_blocked, id=13209, stack(0x8be1a000,0x8be6b000)]
+  0x09225800 JavaThread "Reference Handler" daemon [_thread_blocked, id=13208, stack(0x8be6b000,0x8bebc000)]
+=>0x0917a000 JavaThread "main" [_thread_in_native, id=13202, stack(0xb7710000,0xb7761000)]
+
+Other Threads:
+  0x09221800 VMThread [stack: 0x8bebc000,0x8bf3d000] [id=13207]
+  0x8c109c00 WatcherThread [stack: 0x8b9b4000,0x8ba35000] [id=13214]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 42816K, used 34908K [0xa9bb0000, 0xacaf0000, 0xb4650000)
+  eden space 37376K, 92% used [0xa9bb0000,0xabd5f3e0,0xac030000)
+  from space 5440K, 7% used [0xac5a0000,0xac608000,0xacaf0000)
+  to   space 5504K, 0% used [0xac030000,0xac030000,0xac590000)
+ PSOldGen        total 48256K, used 29179K [0x94650000, 0x97570000, 0xa9bb0000)
+  object space 48256K, 60% used [0x94650000,0x962ceec0,0x97570000)
+ PSPermGen       total 68480K, used 37078K [0x8c650000, 0x90930000, 0x94650000)
+  object space 68480K, 54% used [0x8c650000,0x8ea85928,0x90930000)
+
+Code Cache  [0xb4710000, 0xb4ab8000, 0xb7710000)
+ total_blobs=1303 nmethods=1155 adapters=100 free_code_cache=46563904 largest_free_block=20352
+
+Dynamic libraries:
+00110000-0012c000 r-xp 00000000 08:02 28574650   /lib/i386-linux-gnu/libgcc_s.so.1
+0012c000-0012d000 r--p 0001b000 08:02 28574650   /lib/i386-linux-gnu/libgcc_s.so.1
+0012d000-0012e000 rw-p 0001c000 08:02 28574650   /lib/i386-linux-gnu/libgcc_s.so.1
+0012e000-00139000 r-xp 00000000 08:02 25695488   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00139000-0013a000 ---p 0000b000 08:02 25695488   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+0013a000-0013b000 r--p 0000b000 08:02 25695488   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+0013b000-0013c000 rw-p 0000c000 08:02 25695488   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+0013c000-0013e000 r-xp 00000000 08:02 28573762   /lib/libnss_mdns4_minimal.so.2
+0013e000-0013f000 r--p 00001000 08:02 28573762   /lib/libnss_mdns4_minimal.so.2
+0013f000-00140000 rw-p 00002000 08:02 28573762   /lib/libnss_mdns4_minimal.so.2
+00144000-00157000 r-xp 00000000 08:02 28574712   /lib/i386-linux-gnu/libz.so.1.2.3.4
+00157000-00158000 r--p 00012000 08:02 28574712   /lib/i386-linux-gnu/libz.so.1.2.3.4
+00158000-00159000 rw-p 00013000 08:02 28574712   /lib/i386-linux-gnu/libz.so.1.2.3.4
+00159000-00161000 r-xp 00000000 08:02 28573852   /lib/i386-linux-gnu/libnss_compat-2.13.so
+00161000-00162000 r--p 00007000 08:02 28573852   /lib/i386-linux-gnu/libnss_compat-2.13.so
+00162000-00163000 rw-p 00008000 08:02 28573852   /lib/i386-linux-gnu/libnss_compat-2.13.so
+00163000-0016a000 r-xp 00000000 08:02 25695507   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+0016a000-0016b000 r--p 00006000 08:02 25695507   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+0016b000-0016c000 rw-p 00007000 08:02 25695507   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+0016c000-00174000 r-xp 00000000 08:02 25695413   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00174000-00175000 r--p 00007000 08:02 25695413   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00175000-00176000 rw-p 00008000 08:02 25695413   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00176000-0017b000 r-xp 00000000 08:02 28573853   /lib/i386-linux-gnu/libnss_dns-2.13.so
+0017b000-0017c000 r--p 00004000 08:02 28573853   /lib/i386-linux-gnu/libnss_dns-2.13.so
+0017c000-0017d000 rw-p 00005000 08:02 28573853   /lib/i386-linux-gnu/libnss_dns-2.13.so
+0017d000-00190000 r-xp 00000000 08:02 28574760   /lib/i386-linux-gnu/libresolv-2.13.so
+00190000-00191000 r--p 00012000 08:02 28574760   /lib/i386-linux-gnu/libresolv-2.13.so
+00191000-00192000 rw-p 00013000 08:02 28574760   /lib/i386-linux-gnu/libresolv-2.13.so
+00192000-00194000 rw-p 00000000 00:00 0 
+001c5000-001dc000 r-xp 00000000 08:02 28574759   /lib/i386-linux-gnu/libpthread-2.13.so
+001dc000-001dd000 r--p 00016000 08:02 28574759   /lib/i386-linux-gnu/libpthread-2.13.so
+001dd000-001de000 rw-p 00017000 08:02 28574759   /lib/i386-linux-gnu/libpthread-2.13.so
+001de000-001e0000 rw-p 00000000 00:00 0 
+0034f000-00350000 r-xp 00000000 00:00 0          [vdso]
+00393000-003a8000 r-xp 00000000 08:02 28573851   /lib/i386-linux-gnu/libnsl-2.13.so
+003a8000-003a9000 r--p 00015000 08:02 28573851   /lib/i386-linux-gnu/libnsl-2.13.so
+003a9000-003aa000 rw-p 00016000 08:02 28573851   /lib/i386-linux-gnu/libnsl-2.13.so
+003aa000-003ac000 rw-p 00000000 00:00 0 
+003e2000-003f7000 r-xp 00000000 08:02 25695402   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+003f7000-003f8000 r--p 00014000 08:02 25695402   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+003f8000-003f9000 rw-p 00015000 08:02 25695402   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+0051b000-00522000 r-xp 00000000 08:02 28577640   /lib/i386-linux-gnu/librt-2.13.so
+00522000-00523000 r--p 00006000 08:02 28577640   /lib/i386-linux-gnu/librt-2.13.so
+00523000-00524000 rw-p 00007000 08:02 28577640   /lib/i386-linux-gnu/librt-2.13.so
+0052d000-0060b000 r-xp 00000000 08:02 25695611   /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+0060b000-0060c000 ---p 000de000 08:02 25695611   /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+0060c000-00610000 r--p 000de000 08:02 25695611   /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+00610000-00611000 rw-p 000e2000 08:02 25695611   /usr/lib/i386-linux-gnu/libstdc++.so.6.0.16
+00611000-00618000 rw-p 00000000 00:00 0 
+00646000-00650000 r-xp 00000000 08:02 28574701   /lib/i386-linux-gnu/libnss_nis-2.13.so
+00650000-00651000 r--p 00009000 08:02 28574701   /lib/i386-linux-gnu/libnss_nis-2.13.so
+00651000-00652000 rw-p 0000a000 08:02 28574701   /lib/i386-linux-gnu/libnss_nis-2.13.so
+006d2000-006d6000 r-xp 00000000 08:02 25694797   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+006d6000-006d7000 r--p 00003000 08:02 25694797   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+006d7000-006d8000 rw-p 00004000 08:02 25694797   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00723000-0072e000 r-xp 00000000 08:02 28573854   /lib/i386-linux-gnu/libnss_files-2.13.so
+0072e000-0072f000 r--p 0000a000 08:02 28573854   /lib/i386-linux-gnu/libnss_files-2.13.so
+0072f000-00730000 rw-p 0000b000 08:02 28573854   /lib/i386-linux-gnu/libnss_files-2.13.so
+008bf000-008dd000 r-xp 00000000 08:02 28573842   /lib/i386-linux-gnu/ld-2.13.so
+008dd000-008de000 r--p 0001d000 08:02 28573842   /lib/i386-linux-gnu/ld-2.13.so
+008de000-008df000 rw-p 0001e000 08:02 28573842   /lib/i386-linux-gnu/ld-2.13.so
+00902000-00a7a000 r-xp 00000000 08:02 28573845   /lib/i386-linux-gnu/libc-2.13.so
+00a7a000-00a7c000 r--p 00178000 08:02 28573845   /lib/i386-linux-gnu/libc-2.13.so
+00a7c000-00a7d000 rw-p 0017a000 08:02 28573845   /lib/i386-linux-gnu/libc-2.13.so
+00a7d000-00a80000 rw-p 00000000 00:00 0 
+00b31000-00b57000 r-xp 00000000 08:02 25694820   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00b57000-00b58000 r--p 00025000 08:02 25694820   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00b58000-00b5a000 rw-p 00026000 08:02 25694820   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00bcb000-00bf3000 r-xp 00000000 08:02 28573849   /lib/i386-linux-gnu/libm-2.13.so
+00bf3000-00bf4000 r--p 00028000 08:02 28573849   /lib/i386-linux-gnu/libm-2.13.so
+00bf4000-00bf5000 rw-p 00029000 08:02 28573849   /lib/i386-linux-gnu/libm-2.13.so
+00dcd000-00dd0000 r-xp 00000000 08:02 28573848   /lib/i386-linux-gnu/libdl-2.13.so
+00dd0000-00dd1000 r--p 00002000 08:02 28573848   /lib/i386-linux-gnu/libdl-2.13.so
+00dd1000-00dd2000 rw-p 00003000 08:02 28573848   /lib/i386-linux-gnu/libdl-2.13.so
+00dd2000-015f0000 r-xp 00000000 08:02 25695520   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+015f0000-01635000 r--p 0081e000 08:02 25695520   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01635000-01644000 rw-p 00863000 08:02 25695520   /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01644000-01a5e000 rw-p 00000000 00:00 0 
+08048000-08051000 r-xp 00000000 08:02 25697513   /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08051000-08052000 r--p 00008000 08:02 25697513   /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08052000-08053000 rw-p 00009000 08:02 25697513   /usr/lib/jvm/java-6-openjdk/jre/bin/java
+09173000-0a494000 rw-p 00000000 00:00 0          [heap]
+85600000-856fd000 rw-p 00000000 00:00 0 
+856fd000-85700000 ---p 00000000 00:00 0 
+85700000-857e8000 rw-p 00000000 00:00 0 
+857e8000-85800000 ---p 00000000 00:00 0 
+85800000-858f7000 rw-p 00000000 00:00 0 
+858f7000-85900000 ---p 00000000 00:00 0 
+85900000-859fb000 rw-p 00000000 00:00 0 
+859fb000-85a00000 ---p 00000000 00:00 0 
+85a00000-85ae4000 rw-p 00000000 00:00 0 
+85ae4000-85b00000 ---p 00000000 00:00 0 
+85b00000-85bf2000 rw-p 00000000 00:00 0 
+85bf2000-85c00000 ---p 00000000 00:00 0 
+85c00000-85ced000 rw-p 00000000 00:00 0 
+85ced000-85d00000 ---p 00000000 00:00 0 
+85d00000-85df1000 rw-p 00000000 00:00 0 
+85df1000-85e00000 ---p 00000000 00:00 0 
+85e00000-85eeb000 rw-p 00000000 00:00 0 
+85eeb000-85f00000 ---p 00000000 00:00 0 
+85f00000-85ffd000 rw-p 00000000 00:00 0 
+85ffd000-86000000 ---p 00000000 00:00 0 
+86000000-86100000 rw-p 00000000 00:00 0 
+86100000-861e6000 rw-p 00000000 00:00 0 
+861e6000-86200000 ---p 00000000 00:00 0 
+86200000-86300000 rw-p 00000000 00:00 0 
+86300000-86500000 rw-p 00000000 00:00 0 
+86500000-865f4000 rw-p 00000000 00:00 0 
+865f4000-86600000 ---p 00000000 00:00 0 
+86600000-86700000 rw-p 00000000 00:00 0 
+86700000-86900000 rw-p 00000000 00:00 0 
+86900000-86a00000 rw-p 00000000 00:00 0 
+86a00000-86afe000 rw-p 00000000 00:00 0 
+86afe000-86b00000 ---p 00000000 00:00 0 
+86b00000-86c00000 rw-p 00000000 00:00 0 
+86c00000-86cf0000 rw-p 00000000 00:00 0 
+86cf0000-86d00000 ---p 00000000 00:00 0 
+86d00000-86e00000 rw-p 00000000 00:00 0 
+86e00000-86f00000 rw-p 00000000 00:00 0 
+86f00000-87000000 rw-p 00000000 00:00 0 
+87000000-87100000 rw-p 00000000 00:00 0 
+87100000-87200000 rw-p 00000000 00:00 0 
+87200000-87300000 rw-p 00000000 00:00 0 
+87300000-87500000 rw-p 00000000 00:00 0 
+87500000-87700000 rw-p 00000000 00:00 0 
+87700000-87900000 rw-p 00000000 00:00 0 
+87900000-87b00000 rw-p 00000000 00:00 0 
+87b00000-87d00000 rw-p 00000000 00:00 0 
+87d00000-87f00000 rw-p 00000000 00:00 0 
+87f00000-88100000 rw-p 00000000 00:00 0 
+88100000-88300000 rw-p 00000000 00:00 0 
+88300000-88500000 rw-p 00000000 00:00 0 
+88500000-88700000 rw-p 00000000 00:00 0 
+88700000-88800000 rw-p 00000000 00:00 0 
+88900000-88b00000 rw-p 00000000 00:00 0 
+88b00000-88d00000 rw-p 00000000 00:00 0 
+88d00000-88f00000 rw-p 00000000 00:00 0 
+88f00000-88ff6000 rw-p 00000000 00:00 0 
+88ff6000-89000000 ---p 00000000 00:00 0 
+89000000-89100000 rw-p 00000000 00:00 0 
+89100000-89300000 rw-p 00000000 00:00 0 
+89300000-89500000 rw-p 00000000 00:00 0 
+89500000-895f9000 rw-p 00000000 00:00 0 
+895f9000-89600000 ---p 00000000 00:00 0 
+89600000-896fb000 rw-p 00000000 00:00 0 
+896fb000-89700000 ---p 00000000 00:00 0 
+89700000-897a8000 rw-p 00000000 00:00 0 
+897a8000-89800000 ---p 00000000 00:00 0 
+89800000-898f5000 rw-p 00000000 00:00 0 
+898f5000-89900000 ---p 00000000 00:00 0 
+89900000-899f8000 rw-p 00000000 00:00 0 
+899f8000-89a00000 ---p 00000000 00:00 0 
+89a00000-89af8000 rw-p 00000000 00:00 0 
+89af8000-89b00000 ---p 00000000 00:00 0 
+89b00000-89be3000 rw-p 00000000 00:00 0 
+89be3000-89c00000 ---p 00000000 00:00 0 
+89c00000-89cf6000 rw-p 00000000 00:00 0 
+89cf6000-89d00000 ---p 00000000 00:00 0 
+89d00000-89e00000 rw-p 00000000 00:00 0 
+89f00000-89fff000 rw-p 00000000 00:00 0 
+89fff000-8a000000 ---p 00000000 00:00 0 
+8a100000-8a1fb000 rw-p 00000000 00:00 0 
+8a1fb000-8a200000 ---p 00000000 00:00 0 
+8a300000-8a3fe000 rw-p 00000000 00:00 0 
+8a3fe000-8a400000 ---p 00000000 00:00 0 
+8a400000-8a4ff000 rw-p 00000000 00:00 0 
+8a4ff000-8a500000 ---p 00000000 00:00 0 
+8a500000-8a5ff000 rw-p 00000000 00:00 0 
+8a5ff000-8a600000 ---p 00000000 00:00 0 
+8a600000-8a700000 rw-p 00000000 00:00 0 
+8a700000-8a7f9000 rw-p 00000000 00:00 0 
+8a7f9000-8a800000 ---p 00000000 00:00 0 
+8a800000-8a8fc000 rw-p 00000000 00:00 0 
+8a8fc000-8a900000 ---p 00000000 00:00 0 
+8aa00000-8aaf3000 rw-p 00000000 00:00 0 
+8aaf3000-8ab00000 ---p 00000000 00:00 0 
+8ab00000-8abe3000 rw-p 00000000 00:00 0 
+8abe3000-8ac00000 ---p 00000000 00:00 0 
+8ac00000-8acff000 rw-p 00000000 00:00 0 
+8acff000-8ad00000 ---p 00000000 00:00 0 
+8ad00000-8ae00000 rw-p 00000000 00:00 0 
+8ae00000-8af00000 rw-p 00000000 00:00 0 
+8af0d000-8af10000 ---p 00000000 00:00 0 
+8af10000-8af5e000 rw-p 00000000 00:00 0 
+8af5e000-8af61000 ---p 00000000 00:00 0 
+8af61000-8afaf000 rw-p 00000000 00:00 0 
+8afaf000-8afb2000 ---p 00000000 00:00 0 
+8afb2000-8b000000 rw-p 00000000 00:00 0 
+8b000000-8b0e1000 rw-p 00000000 00:00 0 
+8b0e1000-8b100000 ---p 00000000 00:00 0 
+8b100000-8b200000 rw-p 00000000 00:00 0 
+8b200000-8b2f8000 rw-p 00000000 00:00 0 
+8b2f8000-8b300000 ---p 00000000 00:00 0 
+8b303000-8b305000 r--s 00001000 08:02 25694265   /usr/lib/jvm/java-6-openjdk/jre/lib/ext/dnsns.jar
+8b305000-8b309000 r--s 00038000 08:02 25694264   /usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunpkcs11.jar
+8b309000-8b30c000 r--s 00077000 08:02 25694266   /usr/lib/jvm/java-6-openjdk/jre/lib/ext/localedata.jar
+8b30c000-8b30f000 r--s 00031000 08:02 25694267   /usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunjce_provider.jar
+8b30f000-8b31c000 r--s 00107000 08:02 25694479   /usr/lib/jvm/java-6-openjdk/jre/lib/rhino.jar
+8b31c000-8b32a000 r--s 00351000 08:02 25694214   /usr/lib/jvm/java-6-openjdk/jre/lib/charsets.jar
+8b32a000-8b32c000 r--s 00013000 08:02 25694472   /usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar
+8b32c000-8b32f000 ---p 00000000 00:00 0 
+8b32f000-8b37d000 rw-p 00000000 00:00 0 
+8b37d000-8b37f000 r--s 00007000 08:02 27140880   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/xsbti/interface-0.11.2.jar
+8b37f000-8b382000 r--s 00012000 08:02 27140892   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/classfile_2.9.1-0.11.2.jar
+8b382000-8b385000 r--s 00019000 08:02 27140878   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/process_2.9.1-0.11.2.jar
+8b385000-8b387000 r--s 00010000 08:02 27140867   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/logging_2.9.1-0.11.2.jar
+8b387000-8b38a000 r--s 0001b000 08:02 27140900   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/task-system_2.9.1-0.11.2.jar
+8b38a000-8b38d000 r--s 00027000 08:02 27140887   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/jsch-0.1.31.jar
+8b38d000-8b391000 r--s 0001a000 08:02 27140866   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/tasks_2.9.1-0.11.2.jar
+8b391000-8b392000 r--s 00001000 08:02 27140877   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/launcher-interface_2.9.1-0.11.2.jar
+8b392000-8b3a1000 r--s 000d9000 08:02 27140907   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/ivy-2.2.0.jar
+8b3a1000-8b3a7000 r--s 00045000 08:02 27140908   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/commons-httpclient-3.1.jar
+8b3a7000-8b3ac000 r--s 0003f000 08:02 27140891   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/actions_2.9.1-0.11.2.jar
+8b3ac000-8b3af000 r--s 00012000 08:02 27140869   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/classpath_2.9.1-0.11.2.jar
+8b3af000-8b3b2000 ---p 00000000 00:00 0 
+8b3b2000-8b400000 rw-p 00000000 00:00 0 
+8b400000-8b4fd000 rw-p 00000000 00:00 0 
+8b4fd000-8b500000 ---p 00000000 00:00 0 
+8b500000-8b502000 r--s 00010000 08:02 27140883   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/testing_2.9.1-0.11.2.jar
+8b502000-8b50c000 r--s 00081000 08:02 27140881   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/ivy_2.9.1-0.11.2.jar
+8b50c000-8b50f000 r--s 00019000 08:02 27140868   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/cache_2.9.1-0.11.2.jar
+8b50f000-8b513000 r--s 00019000 08:02 27140886   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/persist_2.9.1-0.11.2.jar
+8b513000-8b519000 r--s 00038000 08:02 27140882   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/io_2.9.1-0.11.2.jar
+8b519000-8b51b000 r--s 00006000 08:02 27140899   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/commons-codec-1.2.jar
+8b51b000-8b53a000 r--s 0019d000 08:02 27140888   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/main_2.9.1-0.11.2.jar
+8b53a000-8b600000 r--s 00a04000 08:02 27140694   /root/.sbt/boot/scala-2.9.1/lib/scala-compiler.jar
+8b600000-8b7f9000 rw-p 00000000 00:00 0 
+8b7f9000-8b800000 ---p 00000000 00:00 0 
+8b800000-8b8fa000 rw-p 00000000 00:00 0 
+8b8fa000-8b900000 ---p 00000000 00:00 0 
+8b900000-8b902000 r--s 00014000 08:02 27140874   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/jline-0.9.94.jar
+8b902000-8b904000 r--s 00008000 08:02 27140895   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/commons-logging-1.0.4.jar
+8b904000-8b907000 r--s 00022000 08:02 27140894   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/sbinary_2.9.0-0.4.0.jar
+8b907000-8b908000 r--s 00002000 08:02 27140893   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/control_2.9.1-0.11.2.jar
+8b908000-8b90a000 r--s 00009000 08:02 27140904   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/tracking_2.9.1-0.11.2.jar
+8b90a000-8b910000 r--s 00041000 08:02 27140898   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/completion_2.9.1-0.11.2.jar
+8b910000-8b912000 r--s 00000000 08:02 27140890   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/test-interface-0.5.jar
+8b912000-8b916000 r--s 00022000 08:02 27140897   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/incremental-compiler_2.9.1-0.11.2.jar
+8b916000-8b91a000 r--s 0001c000 08:02 27140889   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/compile_2.9.1-0.11.2.jar
+8b91a000-8b921000 r--s 00052000 08:02 27140896   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/api_2.9.1-0.11.2.jar
+8b921000-8b926000 r--s 0003f000 08:02 27140903   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/collections_2.9.1-0.11.2.jar
+8b926000-8b927000 r--s 00004000 08:02 27140906   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/sbt_2.9.1-0.11.2.jar
+8b927000-8b92a000 r--s 00018000 08:02 27140692   /root/.sbt/boot/scala-2.9.1/lib/jansi.jar
+8b92a000-8b92d000 r--s 00024000 08:02 27140695   /root/.sbt/boot/scala-2.9.1/lib/jline.jar
+8b92d000-8b9aa000 r--s 007f2000 08:02 27140693   /root/.sbt/boot/scala-2.9.1/lib/scala-library.jar
+8b9aa000-8b9ad000 r--s 000cf000 08:02 27140689   /root/.sbt/boot/other/net.java.dev.jna/jna/3.2.3/jna-3.2.3.jar
+8b9ad000-8b9b4000 r--s 000fb000 08:02 25694478   /usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar
+8b9b4000-8b9b5000 ---p 00000000 00:00 0 
+8b9b5000-8ba35000 rw-p 00000000 00:00 0 
+8ba35000-8ba38000 ---p 00000000 00:00 0 
+8ba38000-8ba86000 rw-p 00000000 00:00 0 
+8ba86000-8ba89000 ---p 00000000 00:00 0 
+8ba89000-8bb07000 rw-p 00000000 00:00 0 
+8bb07000-8bb0a000 ---p 00000000 00:00 0 
+8bb0a000-8bb88000 rw-p 00000000 00:00 0 
+8bb88000-8bb8b000 ---p 00000000 00:00 0 
+8bb8b000-8bbd9000 rw-p 00000000 00:00 0 
+8bbd9000-8bbda000 r--p 0043a000 08:02 25696810   /usr/lib/locale/locale-archive
+8bbda000-8bc1a000 r--p 002bd000 08:02 25696810   /usr/lib/locale/locale-archive
+8bc1a000-8be1a000 r--p 00000000 08:02 25696810   /usr/lib/locale/locale-archive
+8be1a000-8be1d000 ---p 00000000 00:00 0 
+8be1d000-8be6b000 rw-p 00000000 00:00 0 
+8be6b000-8be6e000 ---p 00000000 00:00 0 
+8be6e000-8bebc000 rw-p 00000000 00:00 0 
+8bebc000-8bebd000 ---p 00000000 00:00 0 
+8bebd000-8bf70000 rw-p 00000000 00:00 0 
+8bf70000-8c100000 r--s 037ba000 08:02 25694492   /usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar
+8c100000-8c1fb000 rw-p 00000000 00:00 0 
+8c1fb000-8c200000 ---p 00000000 00:00 0 
+8c200000-8c202000 r--s 00015000 08:02 27140905   /root/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/run_2.9.1-0.11.2.jar
+8c202000-8c20a000 r--s 00066000 08:02 26223259   /usr/share/java/gnome-java-bridge.jar
+8c20a000-8c220000 r--s 000e9000 08:02 26479306   /bin/sbt-launch.jar
+8c220000-8c221000 ---p 00000000 00:00 0 
+8c221000-8c2a1000 rw-p 00000000 00:00 0 
+8c2a1000-8c2a2000 ---p 00000000 00:00 0 
+8c2a2000-8c322000 rw-p 00000000 00:00 0 
+8c322000-8c323000 ---p 00000000 00:00 0 
+8c323000-8c3a3000 rw-p 00000000 00:00 0 
+8c3a3000-8c3a4000 ---p 00000000 00:00 0 
+8c3a4000-8c446000 rw-p 00000000 00:00 0 
+8c446000-8c464000 rw-p 00000000 00:00 0 
+8c464000-8c47c000 rw-p 00000000 00:00 0 
+8c47c000-8c50f000 rw-p 00000000 00:00 0 
+8c50f000-8c531000 rw-p 00000000 00:00 0 
+8c531000-8c54f000 rw-p 00000000 00:00 0 
+8c54f000-8c567000 rw-p 00000000 00:00 0 
+8c567000-8c5f9000 rw-p 00000000 00:00 0 
+8c5f9000-8c612000 rw-p 00000000 00:00 0 
+8c612000-8c64f000 rw-p 00000000 00:00 0 
+8c64f000-90930000 rw-p 00000000 00:00 0 
+90930000-94650000 rw-p 00000000 00:00 0 
+94650000-97570000 rw-p 00000000 00:00 0 
+97570000-a9bb0000 rw-p 00000000 00:00 0 
+a9bb0000-acaf0000 rw-p 00000000 00:00 0 
+acaf0000-acb30000 ---p 00000000 00:00 0 
+acb30000-b4650000 rw-p 00000000 00:00 0 
+b4650000-b465f000 rw-p 00000000 00:00 0 
+b465f000-b4710000 rw-p 00000000 00:00 0 
+b4710000-b4ab8000 rwxp 00000000 00:00 0 
+b4ab8000-b7710000 rw-p 00000000 00:00 0 
+b7710000-b7713000 ---p 00000000 00:00 0 
+b7713000-b7764000 rw-p 00000000 00:00 0 
+b7764000-b7767000 r--s 0007d000 08:02 25694473   /usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar
+b7767000-b7769000 r--s 0000f000 08:02 25694270   /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar
+b7769000-b7771000 rw-s 00000000 08:02 1966107    /tmp/hsperfdata_root/13201
+b7771000-b7772000 rw-p 00000000 00:00 0 
+b7772000-b7773000 r--p 00000000 00:00 0 
+b7773000-b7775000 rw-p 00000000 00:00 0 
+bfd05000-bfd3a000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Xmx512M 
+java_command: /bin/sbt-launch.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin
+USERNAME=root
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x66a530], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x66a530], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x52e2c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x52e150], sa_mask[0]=0x00000000, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x5311f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Ubuntu 11.10 (oneiric)
+uname:Linux 3.0.0-16-generic #29-Ubuntu SMP Tue Feb 14 12:49:42 UTC 2012 i686
+libc:glibc 2.13 NPTL 2.13 
+rlimit: STACK 8192k, CORE 0k, NPROC 24023, NOFILE 4096, AS infinity
+load average:0.11 0.13 0.13
+
+/proc/meminfo:
+MemTotal:        3089052 kB
+MemFree:          321664 kB
+Buffers:          207820 kB
+Cached:          1709444 kB
+SwapCached:            0 kB
+Active:          1676160 kB
+Inactive:         956592 kB
+Active(anon):     945480 kB
+Inactive(anon):    94568 kB
+Active(file):     730680 kB
+Inactive(file):   862024 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+HighTotal:       2226888 kB
+HighFree:          29856 kB
+LowTotal:         862164 kB
+LowFree:          291808 kB
+SwapTotal:      19530748 kB
+SwapFree:       19530744 kB
+Dirty:              1212 kB
+Writeback:             0 kB
+AnonPages:        715756 kB
+Mapped:           116764 kB
+Shmem:            324560 kB
+Slab:              80184 kB
+SReclaimable:      66184 kB
+SUnreclaim:        14000 kB
+KernelStack:        3168 kB
+PageTables:         9284 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    21075272 kB
+Committed_AS:    3152520 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       30880 kB
+VmallocChunk:      78996 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       4096 kB
+DirectMap4k:       16376 kB
+DirectMap4M:      892928 kB
+
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 15 stepping 11, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3
+
+Memory: 4k page, physical 3089052k(321664k free), swap 19530748k(19530744k free)
+
+vm_info: OpenJDK Server VM (20.0-b11) for linux-x86 JRE (1.6.0_23-b23), built on Feb 23 2012 06:26:43 by "buildd" with gcc 4.6.1
+
+time: Mon Mar 26 11:04:07 2012
+elapsed time: 127 seconds
+

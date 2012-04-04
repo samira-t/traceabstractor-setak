@@ -1,0 +1,7 @@
+[0m[[0minfo[0m] [0m[32mTestDynamicActorCreation:[0m[0m
+[0m[[0minfo[0m] [0m[32mThe child actor created by self factory [0m[0m
+[0m[[0minfo[0m] [0m[32m- should be an insatnce of TestActroRef[0m[0m
+[0m[[0minfo[0m] [0m[32mThe child actor created by common pool factory [0m[0m
+[0m[[0minfo[0m] [0m[32m- should be an insatnce of TestActroRef[0m[0m
+[0m[[0minfo[0m] [0m[32mThe child actor [0m[0m
+[0m[[0minfo[0m] [0m[32m- should  not be an insatnce of TestActroRef[0m[0m

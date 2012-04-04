@@ -1,0 +1,3 @@
+[0m[[0minfo[0m] [0m[32mBankSpec:[0m[0m
+[0m[[0minfo[0m] [0m[32mCalling Bank.transfer with an amount of 10 [0m[0m
+[0m[[0minfo[0m] [0m[32m- should result in an amount of -10 for the "from" Account and an amount of 10 for the "to" Account.[0m[0m
