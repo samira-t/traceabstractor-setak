@@ -101,7 +101,10 @@ class WaitingRoom(capacity: Int, barber: ActorRef) extends Actor {
           self ! Next
         } else {
           self.reply(Wait)
-          //self ! Next
+          /**
+           * cannot be detected
+           */
+          /*self ! Next*/
         }
       }
     }

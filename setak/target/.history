@@ -140,3 +140,8 @@ test-only akka.setak.examples.TestBoundedBufferWithProducerConsumerUsingAfterMes
 test
 git
 git add setak
+test
+exit
+test-only akka.setak.examples.sleepingbarber.SleepingBarberSpec
+test-only akka.setak.examples.sleepingbarber.BarberSpec
+exit

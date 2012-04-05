@@ -61,9 +61,9 @@ public class Main {
 				subject = subject + "2";
 			if (traceFile.length() > 0 // && subject.contains("procreg")
 
-					&& traceFile.length() < (1024 * 1024 * 15) && traceFile.getName().contains("eca") && !processedFiles.contains(subject)
+					&& traceFile.length() < (1024 * 1024 * 20) && traceFile.getName().contains("eca") && !processedFiles.contains(subject)
 
-			/* && traceFile.getName().contains("procreg-test") */) {
+					&& traceFile.getName().contains("sleeping")) {
 				// the
 				processedFiles.add(subject);
 

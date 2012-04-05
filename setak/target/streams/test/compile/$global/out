@@ -2,14 +2,26 @@
 [0m[[0mdebug[0m] [0mInitial source changes: [0m
 [0m[[0mdebug[0m] [0m	removed:Set()[0m
 [0m[[0mdebug[0m] [0m	added: Set()[0m
-[0m[[0mdebug[0m] [0m	modified: Set()[0m
+[0m[[0mdebug[0m] [0m	modified: Set(/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/src/test/scala/akka/setak/examples/sleepingbarber/SleepingBarber.scala)[0m
 [0m[[0mdebug[0m] [0mRemoved products: Set()[0m
 [0m[[0mdebug[0m] [0mModified external sources: Set()[0m
 [0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set()[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set(/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/src/test/scala/akka/setak/examples/sleepingbarber/SleepingBarber.scala)[0m
 [0m[[0mdebug[0m] [0m[0m
 [0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m	product: Set()[0m
 [0m[[0mdebug[0m] [0m	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m	external source: Set()[0m
-[0m[[0mdebug[0m] [0mInitially invalidated: Set()[0m
+[0m[[0mdebug[0m] [0mInitially invalidated: Set(/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/src/test/scala/akka/setak/examples/sleepingbarber/SleepingBarber.scala)[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /home/samira/workspace/workspace-scala/traceabstractor-setak/setak/target/scala-2.9.1/test-classes...[0m
+[0m[[0mdebug[0m] [0mInterfacing (CompilerInterface) with Scala compiler version 2.9.1.final[0m
+[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
+[0m[[0mdebug[0m] [0m	-d[0m
+[0m[[0mdebug[0m] [0m	/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/target/scala-2.9.1/test-classes[0m
+[0m[[0mdebug[0m] [0m	-bootclasspath[0m
+[0m[[0mdebug[0m] [0m	/usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/netx.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/plugin.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rhino.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/modules/jdk.boot.jar:/usr/lib/jvm/java-6-openjdk/jre/classes:/root/.sbt/boot/scala-2.9.1/lib/scala-library.jar[0m
+[0m[[0mdebug[0m] [0m	-cp[0m
+[0m[[0mdebug[0m] [0m	/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/target/scala-2.9.1/test-classes:/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/target/scala-2.9.1/classes:/root/.ivy2/cache/se.scalablesolutions.akka/akka-testkit/jars/akka-testkit-1.2-RC6.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-actor/jars/akka-actor-1.2-RC6.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-remote/jars/akka-remote-1.2-RC6.jar:/root/.ivy2/cache/org.guiceyfruit/guice-all/jars/guice-all-2.0.jar:/root/.ivy2/cache/org.jboss.netty/netty/bundles/netty-3.2.5.Final.jar:/root/.ivy2/cache/voldemort.store.compress/h2-lzf/jars/h2-lzf-1.0.jar:/root/.ivy2/cache/com.google.protobuf/protobuf-java/jars/protobuf-java-2.4.1.jar:/root/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.0.1.jar:/root/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.4.jar:/root/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.8.0.jar:/root/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.8.0.jar:/root/.ivy2/cache/net.debasishg/sjson_2.9.0/jars/sjson_2.9.0-0.11.jar:/root/.ivy2/cache/net.databinder/dispatch-json_2.9.0/jars/dispatch-json_2.9.0-0.8.1.jar:/root/.ivy2/cache/org.objenesis/objenesis/jars/objenesis-1.2.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-typed-actor/jars/akka-typed-actor-1.2-RC6.jar:/root/.ivy2/cache/aopalliance/aopalliance/jars/aopalliance-1.0.jar:/root/.ivy2/cache/org.codehaus.aspectwerkz/aspectwerkz/jars/aspectwerkz-2.2.3.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-stm/jars/akka-stm-1.2-RC6.jar:/root/.ivy2/cache/org.multiverse/multiverse-alpha/jars/multiverse-alpha-0.6.2.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-slf4j/jars/akka-slf4j-1.2-RC6.jar:/root/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.6.0.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-http/jars/akka-http-1.2-RC6.jar:/root/.ivy2/cache/javax.ws.rs/jsr311-api/jars/jsr311-api-1.1.jar:/root/.ivy2/cache/javax.annotation/jsr250-api/jars/jsr250-api-1.0.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-actor-tests/jars/akka-actor-tests-1.2-RC6.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-redis-mailbox/jars/akka-redis-mailbox-1.2-RC6.jar:/root/.ivy2/cache/net.debasishg/redisclient_2.9.0/jars/redisclient_2.9.0-2.3.1.jar:/root/.ivy2/cache/junit/junit/jars/junit-4.8.1.jar:/root/.ivy2/cache/commons-pool/commons-pool/jars/commons-pool-1.5.5.jar:/root/.ivy2/cache/org.slf4j/slf4j-log4j12/jars/slf4j-log4j12-1.5.8.jar:/root/.ivy2/cache/log4j/log4j/bundles/log4j-1.2.16.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-mailboxes-common/jars/akka-mailboxes-common-1.2-RC6.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-file-mailbox/jars/akka-file-mailbox-1.2-RC6.jar:/root/.ivy2/cache/se.scalablesolutions.akka/akka-beanstalk-mailbox/jars/akka-beanstalk-mailbox-1.2-RC6.jar:/root/.ivy2/cache/beanstalk/beanstalk_client/jars/beanstalk_client-1.4.5.jar:/root/.ivy2/cache/org.scalatest/scalatest_2.9.0/jars/scalatest_2.9.0-1.6.1.jar[0m
+[0m[[0mdebug[0m] [0m	/home/samira/workspace/workspace-scala/traceabstractor-setak/setak/src/test/scala/akka/setak/examples/sleepingbarber/SleepingBarber.scala[0m
+[0m[[0mdebug[0m] [0m	Invalidated direct: Set()[0m
+[0m[[0mdebug[0m] [0mIncrementally invalidated: Set()[0m

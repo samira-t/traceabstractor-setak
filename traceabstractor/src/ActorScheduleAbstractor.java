@@ -107,13 +107,14 @@ public class ActorScheduleAbstractor extends ScheduleAbstractor {
 			Logger.reportOriginalSchedulesInfo(result, totalSize, scheudlesWithSameEvents);
 
 			for (ArrayList<Schedule> schedules : scheudlesWithSameEvents) {
-				int originalSize = schedules.size();
-				applyScheduleAbstraction(setsInfo, schedules, originalSize);
+				// int originalSize = schedules.size();
+				// applyScheduleAbstraction(setsInfo, schedules, originalSize);
 			}
 
-			ArrayList<ArrayList<Schedule>> finalReducedSchedules = applySymmetryReduction(setsInfo, scheudlesWithSameEvents);
+			// ArrayList<ArrayList<Schedule>> finalReducedSchedules = applySymmetryReduction(setsInfo, scheudlesWithSameEvents);
 
-			Logger.reportSchedulesOfResult(result, setsInfo, scheudlesWithSameEvents, finalReducedSchedules);
+			// Logger.reportSchedulesOfResult(result, setsInfo, scheudlesWithSameEvents, finalReducedSchedules);
+			Logger.reportSchedulesOfResult(result, setsInfo, scheudlesWithSameEvents, scheudlesWithSameEvents);
 			resultToSetMap.put(result, setsInfo);
 
 		}

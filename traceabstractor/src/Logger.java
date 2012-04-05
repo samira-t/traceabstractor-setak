@@ -30,8 +30,8 @@ public class Logger {
 	public static void setSummaryWriter(String summaryFile) {
 		try {
 			summaryWriter = new BufferedWriter(new FileWriter(summaryFile, false));
-			summaryWriter.write(padRight("subject", subjectColumnLen) + padRight("|result ", resultColumnLen) + padRight("|#sched")
-					+ padRight("|#after") + padRight("|#sym") + padRight("|#sets") + " \n \n");
+			summaryWriter.write(padRight("subject", subjectColumnLen) + padRight("|result ", resultColumnLen) + padRight("|#sched") + padRight("|#after") + padRight("|#sym") + padRight("|#sets")
+					+ " \n \n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,8 +56,7 @@ public class Logger {
 		Logger.writeScheduleInfo("==============================================\n");
 	}
 
-	public static void reportSchedulesOfResult(String result, ArrayList<int[]> setsInfo, ArrayList<ArrayList<Schedule>> scheudlesWithSameEvents,
-			ArrayList<ArrayList<Schedule>> finalReducedSchedules) {
+	public static void reportSchedulesOfResult(String result, ArrayList<int[]> setsInfo, ArrayList<ArrayList<Schedule>> scheudlesWithSameEvents, ArrayList<ArrayList<Schedule>> finalReducedSchedules) {
 		writeScheduleInfo("Num of clusters (sets) with same events  before symmetry = " + scheudlesWithSameEvents.size() + "\n");
 		writeScheduleInfo("Num of clusters (sets) with same events  after symmetry = " + finalReducedSchedules.size() + "\n");
 		writeScheduleInfo("==============================================\n");
@@ -65,11 +64,11 @@ public class Logger {
 		for (int i = 0; i < finalReducedSchedules.size(); i++) {
 			writeScheduleInfo("================= Set " + (i + 1) + " =================\n");
 
-			int[] info = setsInfo.get(i);
+			// int[] info = setsInfo.get(i);
 			ArrayList<Schedule> schedules = finalReducedSchedules.get(i);
-			writeScheduleInfo("Reduction in number of schedules = " + info[1] + ", out of " + info[0] + " schedules \n");
-			writeScheduleInfo("Reduction because of symmetry = " + info[3] + " schedules \n");
-			writeScheduleInfo("Number of removed constraints =" + info[2] + " \n");
+			// writeScheduleInfo("Reduction in number of schedules = " + info[1] + ", out of " + info[0] + " schedules \n");
+			// writeScheduleInfo("Reduction because of symmetry = " + info[3] + " schedules \n");
+			// writeScheduleInfo("Number of removed constraints =" + info[2] + " \n");
 
 			int scheduleIndex = 0;
 			for (Schedule schedule : schedules) {
@@ -124,14 +123,12 @@ public class Logger {
 					totalBefore += setSchedules[0];
 					totalAfter += setSchedules[1];
 					symReduc += setSchedules[3];
-					setInfo += padLeft("set", subjectColumnLen + resultColumnLen + numberColumnLen * 3 + 3) + (++setIndex) + ": bef#="
-							+ setSchedules[0] + ", aft#=" + setSchedules[1] + ", remConst#=" + setSchedules[2] + "\n";
+					setInfo += padLeft("set", subjectColumnLen + resultColumnLen + numberColumnLen * 3 + 3) + (++setIndex) + ": bef#=" + setSchedules[0] + ", aft#=" + setSchedules[1] + ", remConst#="
+							+ setSchedules[2] + "\n";
 
 				}
 				resultInfo += padRight("|" + String.valueOf(totalBefore))
-						+ padRight("|"
-								+ String.valueOf((totalAfter + symReduc) + "("
-										+ Math.round((double) (totalAfter + symReduc) / (double) totalBefore * 100)) + "%)")
+						+ padRight("|" + String.valueOf((totalAfter + symReduc) + "(" + Math.round((double) (totalAfter + symReduc) / (double) totalBefore * 100)) + "%)")
 						+ padRight("|" + String.valueOf(totalAfter + "(" + Math.round((double) totalAfter / (double) totalBefore * 100) + "%)"))
 						+ padRight("|" + String.valueOf(resultToSetMap.get(result).size())) + "\n";
 				summaryWriter.write(resultInfo);

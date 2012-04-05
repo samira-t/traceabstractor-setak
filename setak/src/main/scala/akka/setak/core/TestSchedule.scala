@@ -25,7 +25,7 @@ class TestSchedule {
 
   def addPartialOrder(partialOrder: TestEnvelopSequence) = synchronized {
     partialOrders.+=(partialOrder)
-    println("****" + partialOrders.size)
+    //println("****" + partialOrders.size)
   }
 
   /**

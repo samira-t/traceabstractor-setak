@@ -1,13 +1,13 @@
-[0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.JUnitTestBoundedBuffer : subclass(false, org.scalatest.Suite) with arguments [0m
-[0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.TestBoundedBufferWithProducerConsumerUsingAfterMessage : subclass(false, org.scalatest.Suite) with arguments [0m
-[0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.ActorFireForgetRequestReplySpec : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0mdebug[0m] [0mRunning Test com.weiglewilczek.demo.akka.banking.BankSpec : subclass(false, org.scalatest.Suite) with arguments [0m
+[0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.JUnitTestBoundedBuffer : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.SpecTestBoundedBuffer : subclass(false, org.scalatest.Suite) with arguments [0m
-[0m[[0mdebug[0m] [0mRunning Test akka.setak.test.JUnitTestEnvelopMatching : subclass(false, org.scalatest.Suite) with arguments [0m
+[0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.ActorFireForgetRequestReplySpec : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0mdebug[0m] [0mRunning Test akka.setak.test.ScalaTestEnvelopMatching : subclass(false, org.scalatest.Suite) with arguments [0m
+[0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.TestBoundedBufferWithProducerConsumerUsingAfterMessage : subclass(false, org.scalatest.Suite) with arguments [0m
+[0m[[0mdebug[0m] [0mRunning Test akka.setak.test.TestDynamicActorCreation : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.procreg.RegistrySpec : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0mdebug[0m] [0mRunning Test akka.setak.examples.TestBoundedBufferWithProducerConsumer : subclass(false, org.scalatest.Suite) with arguments [0m
-[0m[[0mdebug[0m] [0mRunning Test akka.setak.test.TestDynamicActorCreation : subclass(false, org.scalatest.Suite) with arguments [0m
+[0m[[0mdebug[0m] [0mRunning Test akka.setak.test.JUnitTestEnvelopMatching : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0mdebug[0m] [0mRunning Test akka.setak.test.TestFutureMeesages : subclass(false, org.scalatest.Suite) with arguments [0m
 [0m[[0minfo[0m] [0mPassed: : Total 21, Failed 0, Errors 0, Passed 21, Skipped 0[0m
 [0m[[0mdebug[0m] [0mPassed tests:[0m
