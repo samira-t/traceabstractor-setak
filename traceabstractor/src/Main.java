@@ -18,7 +18,7 @@ public class Main {
 		// "C:\\Users\\tasharo1\\Desktop\\actors\\mttraces\\SimpleIntTestLog";
 		ScheduleAbstractor abstractor = new MTScheduleAbstractor();
 		try {
-			abstractor.abstractSchedules(new String[] { fileName, "putThread", "getThread" });
+			// abstractor.abstractSchedules(new String[] { fileName, "putThread", "getThread" });
 
 			// abstractor.abstractSchedules(new String[]{fileName,"t2","t1"});
 
@@ -39,7 +39,7 @@ public class Main {
 		String outputFolder_newSeq = ".\\output-newseq\\";
 		String outputFolder_symmetry = ".\\output-symmetry-new\\";
 		String outputFolder_symmetry_minimalconst = ".\\output-sym-minimalconst\\";
-		String temp = ".//temp//";
+		String temp = "./temp/";
 
 		File traceFolder = new File(bugTraceFolder);
 		String outputFolder = temp;
@@ -90,10 +90,15 @@ public class Main {
 				// String fileName = bugTraceFolder + traceFile;
 
 				ScheduleAbstractor abstractor = new ActorScheduleAbstractor();
+				boolean applyAbstraction = true;
 				try {
-					String outputFile = outputFolder + traceFile.getName().replace(".txt", "-out.txt");
+					String outputFile = outputFolder + traceFile.getName();
+					if (applyAbstraction)
+						outputFile = outputFile.replace(".txt", "-red.txt");
+					else
+						outputFile = outputFile.replace(".txt", "-orig.txt");
 					Logger.setScheuleWriter(outputFile);
-					abstractor.abstractSchedules(new String[] { traceFile.getAbsolutePath() });
+					abstractor.abstractSchedules(new String[] { traceFile.getAbsolutePath() }, applyAbstraction);
 					// break;
 					// "C:\\Users\\tasharo1\\workspace_scala\\traceparser\\output2\\"
 					// + traceFile.replace(".txt", "-out.txt") });

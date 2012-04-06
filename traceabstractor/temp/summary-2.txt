@@ -1,7 +1,79 @@
 subject                       |result        |#sched |#after |#sym   |#sets   
  
-/home/samira/workspace/workspace-scala/traceabstractor-setak/traceabstractor/./inputs/full/sleepingbarber-eca-3|NO_BUG        |0      |0(0%)  |0(0%)  |0      
+/home/samira/workspace/workspace-scala/traceabstractor-setak/traceabstractor/./inputs/full/sleepingbarber-eca-3|NO_BUG        |493    |98(20%)|71(14%)|24     
+                                                                     set1: bef#=181, aft#=8, remConst#=200
+                                                                     set2: bef#=78, aft#=8, remConst#=96
+                                                                     set3: bef#=9, aft#=3, remConst#=12
+                                                                     set4: bef#=78, aft#=8, remConst#=96
+                                                                     set5: bef#=9, aft#=3, remConst#=12
+                                                                     set6: bef#=12, aft#=4, remConst#=16
+                                                                     set7: bef#=9, aft#=3, remConst#=12
+                                                                     set8: bef#=3, aft#=1, remConst#=4
+                                                                     set9: bef#=3, aft#=1, remConst#=4
+                                                                     set10: bef#=35, aft#=4, remConst#=46
+                                                                     set11: bef#=9, aft#=3, remConst#=12
+                                                                     set12: bef#=9, aft#=3, remConst#=12
+                                                                     set13: bef#=14, aft#=4, remConst#=12
+                                                                     set14: bef#=2, aft#=2, remConst#=0
+                                                                     set15: bef#=2, aft#=2, remConst#=0
+                                                                     set16: bef#=1, aft#=1, remConst#=0
+                                                                     set17: bef#=1, aft#=1, remConst#=0
+                                                                     set18: bef#=12, aft#=3, remConst#=16
+                                                                     set19: bef#=12, aft#=3, remConst#=16
+                                                                     set20: bef#=2, aft#=2, remConst#=0
+                                                                     set21: bef#=3, aft#=1, remConst#=4
+                                                                     set22: bef#=3, aft#=1, remConst#=4
+                                                                     set23: bef#=3, aft#=1, remConst#=4
+                                                                     set24: bef#=3, aft#=1, remConst#=4
 
-/home/samira/workspace/workspace-scala/traceabstractor-setak/traceabstractor/./inputs/full/sleepingbarber-eca-3|EXCEPTION     |0      |0(0%)  |0(0%)  |0      
+/home/samira/workspace/workspace-scala/traceabstractor-setak/traceabstractor/./inputs/full/sleepingbarber-eca-3|EXCEPTION     |212    |132(62%)|88(42%)|48     
+                                                                     set1: bef#=22, aft#=5, remConst#=38
+                                                                     set2: bef#=14, aft#=6, remConst#=20
+                                                                     set3: bef#=8, aft#=3, remConst#=8
+                                                                     set4: bef#=14, aft#=6, remConst#=20
+                                                                     set5: bef#=4, aft#=1, remConst#=2
+                                                                     set6: bef#=2, aft#=2, remConst#=0
+                                                                     set7: bef#=6, aft#=1, remConst#=4
+                                                                     set8: bef#=2, aft#=2, remConst#=0
+                                                                     set9: bef#=4, aft#=1, remConst#=2
+                                                                     set10: bef#=15, aft#=3, remConst#=24
+                                                                     set11: bef#=8, aft#=3, remConst#=8
+                                                                     set12: bef#=2, aft#=2, remConst#=0
+                                                                     set13: bef#=8, aft#=3, remConst#=8
+                                                                     set14: bef#=1, aft#=1, remConst#=0
+                                                                     set15: bef#=2, aft#=2, remConst#=0
+                                                                     set16: bef#=1, aft#=1, remConst#=0
+                                                                     set17: bef#=8, aft#=2, remConst#=12
+                                                                     set18: bef#=4, aft#=1, remConst#=4
+                                                                     set19: bef#=2, aft#=1, remConst#=2
+                                                                     set20: bef#=4, aft#=1, remConst#=4
+                                                                     set21: bef#=6, aft#=2, remConst#=8
+                                                                     set22: bef#=2, aft#=1, remConst#=2
+                                                                     set23: bef#=2, aft#=1, remConst#=2
+                                                                     set24: bef#=2, aft#=1, remConst#=2
+                                                                     set25: bef#=2, aft#=1, remConst#=2
+                                                                     set26: bef#=3, aft#=2, remConst#=4
+                                                                     set27: bef#=1, aft#=1, remConst#=0
+                                                                     set28: bef#=1, aft#=1, remConst#=0
+                                                                     set29: bef#=3, aft#=2, remConst#=4
+                                                                     set30: bef#=1, aft#=1, remConst#=0
+                                                                     set31: bef#=1, aft#=1, remConst#=0
+                                                                     set32: bef#=6, aft#=1, remConst#=6
+                                                                     set33: bef#=3, aft#=2, remConst#=4
+                                                                     set34: bef#=1, aft#=1, remConst#=0
+                                                                     set35: bef#=1, aft#=1, remConst#=0
+                                                                     set36: bef#=3, aft#=2, remConst#=4
+                                                                     set37: bef#=1, aft#=1, remConst#=0
+                                                                     set38: bef#=1, aft#=1, remConst#=0
+                                                                     set39: bef#=8, aft#=2, remConst#=12
+                                                                     set40: bef#=4, aft#=1, remConst#=4
+                                                                     set41: bef#=4, aft#=1, remConst#=4
+                                                                     set42: bef#=7, aft#=2, remConst#=12
+                                                                     set43: bef#=6, aft#=3, remConst#=8
+                                                                     set44: bef#=2, aft#=2, remConst#=0
+                                                                     set45: bef#=6, aft#=3, remConst#=8
+                                                                     set46: bef#=1, aft#=1, remConst#=0
+                                                                     set47: bef#=2, aft#=2, remConst#=0
+                                                                     set48: bef#=1, aft#=1, remConst#=0
 
 ==========================================

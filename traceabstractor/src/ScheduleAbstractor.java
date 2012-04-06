@@ -2,12 +2,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 abstract class ScheduleAbstractor {
-	public void abstractSchedules(String[] args) throws Exception {
+	public void abstractSchedules(String[] args, Boolean applyReduction) throws Exception {
 		HashMap<String, ArrayList<Schedule>> resultToSchedulesMap = new HashMap<String, ArrayList<Schedule>>();
 		exatractScheulesFromFile(args[0], resultToSchedulesMap);
 
 		// summarizeDistances(resultToSchedulesMap, args[0]+"_distancesummary");
-		clusterSchedules(resultToSchedulesMap);
+		if (applyReduction)
+			clusterSchedules(resultToSchedulesMap);
+		else
+			Logger.reportSchedules(resultToSchedulesMap);
 		// clusterSchedules2(resultToSchedulesMap, args[0] +
 		// "_clustersummary2");
 

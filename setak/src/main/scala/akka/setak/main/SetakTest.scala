@@ -31,8 +31,8 @@ trait SetakTest {
       testExecutionManager = new TestExecutionManager()
       testEnvelopUtil = new TestEnvelopUtil()
       testActorRefFactory = new TestActorRefFactory()
-      Commons.testFactoryPool.add(testActorRefFactory)
-      anonymousSchedule = null
+      //Commons.testFactoryPool.add(testActorRefFactory)
+      //anonymousSchedule = null
       testInitialized = true
     }
   }

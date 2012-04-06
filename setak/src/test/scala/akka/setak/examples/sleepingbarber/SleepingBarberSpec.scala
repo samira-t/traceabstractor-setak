@@ -1,6 +1,6 @@
 package akka.setak.examples.sleepingbarber
 
-import akka.actor.Actor
+//import akka.actor.Actor
 import akka.actor.ActorRef
 import org.junit.Test
 import org.junit.Before
@@ -93,7 +93,8 @@ class BarberSpec extends SetakFlatSpec {
   //  var fullc4: TestEnvelop = _
 
   override def setUp() {
-    val traceFile = scala.io.Source.fromFile("./src/test/scala/akka/setak/examples/sleepingbarber/sleepingbarber.txt")
+    val traceFile = scala.io.Source.fromFile("../traceabstractor/temp/sleepingbarber_bugtraces_bugbound_limit_3_heuristic_eca-red.txt")
+    //val traceFile = scala.io.Source.fromFile("./src/test/scala/akka/setak/examples/sleepingbarber/sleepingbarber.txt")
     reader = new ScheduleFileReader(traceFile)
 
     //    enterc1w = testEnvelopPattern(customers(0), waitingRoom, { case Enter(_) ⇒ })
@@ -138,14 +139,17 @@ class BarberSpec extends SetakFlatSpec {
 
   "test reading schedules from file" should "pass" in {
 
-    val schedulesLines = reader.getSchedulesLines("NO_BUG")
+    val schedulesLinesMap = reader.getSchedulesLines("NO_BUG")
     var counter = 0
-    for (scheduleLines ← schedulesLines) {
+    for (key ← schedulesLinesMap.keySet) {
+      setUpTest()
+      var scheduleLines = schedulesLinesMap.get(key).get
       counter += 1
       println("counter = " + counter)
-      setUpTest()
       val schedule = scheduleGenerator.getSchedule(scheduleLines)
+      //println("line sheudles=" + scheduleLines)
       setSchedule(schedule)
+      //println("line Number=" + key)
       barber.start
       waitingRoom.start
       customers.foreach(c ⇒ c.start())
@@ -167,13 +171,16 @@ class BarberSpec extends SetakFlatSpec {
 
   "test reading schedules from file" should "fail" in {
 
-    val schedulesLines = reader.getSchedulesLines("EXCEPTION")
+    val schedulesLinesMap = reader.getSchedulesLines("EXCEPTION")
     var counter = 0
-    for (scheduleLines ← schedulesLines) {
+
+    for (key ← schedulesLinesMap.keySet) {
+      var scheduleLines = schedulesLinesMap.get(key).get
       counter += 1
       println("counter = " + counter)
       setUpTest()
       val schedule = scheduleGenerator.getSchedule(scheduleLines)
+      println(key)
       setSchedule(schedule)
       barber.start
       waitingRoom.start

@@ -7,6 +7,6 @@ package akka.setak
 object TestConfig {
   var maxTryForStability = 20
   var sleepInterval = 100
-  var timeOutForMessages = 2000
+  var timeOutForMessages = 5000
 }
 

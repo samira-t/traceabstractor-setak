@@ -64,11 +64,11 @@ public class Logger {
 		for (int i = 0; i < finalReducedSchedules.size(); i++) {
 			writeScheduleInfo("================= Set " + (i + 1) + " =================\n");
 
-			// int[] info = setsInfo.get(i);
+			int[] info = setsInfo.get(i);
 			ArrayList<Schedule> schedules = finalReducedSchedules.get(i);
-			// writeScheduleInfo("Reduction in number of schedules = " + info[1] + ", out of " + info[0] + " schedules \n");
-			// writeScheduleInfo("Reduction because of symmetry = " + info[3] + " schedules \n");
-			// writeScheduleInfo("Number of removed constraints =" + info[2] + " \n");
+			writeScheduleInfo("Reduction in number of schedules = " + info[1] + ", out of " + info[0] + " schedules \n");
+			writeScheduleInfo("Reduction because of symmetry = " + info[3] + " schedules \n");
+			writeScheduleInfo("Number of removed constraints =" + info[2] + " \n");
 
 			int scheduleIndex = 0;
 			for (Schedule schedule : schedules) {
@@ -80,6 +80,21 @@ public class Logger {
 			}
 		}
 		writeScheduleInfo("********************************************\n");
+	}
+
+	public static void reportSchedules(HashMap<String, ArrayList<Schedule>> resultToSchedulesMap) {
+		for (String result : resultToSchedulesMap.keySet()) {
+			ArrayList<Schedule> schedules = resultToSchedulesMap.get(result);
+			Logger.writeScheduleInfo("**************** RESULT = " + result + " ************************\n");
+			int scheduleIndex = 0;
+			for (Schedule schedule : schedules) {
+				scheduleIndex++;
+				writeScheduleInfo("---------------------------------------------\n");
+				writeScheduleInfo("Schedule: " + scheduleIndex + "\n");
+				writeScheduleInfo(schedule.toString() + "\n");
+			}
+			writeScheduleInfo("********************************************\n");
+		}
 	}
 
 	public static void logInfo(String log) {

@@ -145,3 +145,4 @@ exit
 test-only akka.setak.examples.sleepingbarber.SleepingBarberSpec
 test-only akka.setak.examples.sleepingbarber.BarberSpec
 exit
+test-only akka.setak.examples.sleepingbarber.BarberSpec

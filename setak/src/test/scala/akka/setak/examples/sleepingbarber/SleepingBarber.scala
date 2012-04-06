@@ -28,6 +28,7 @@ class Barber extends Actor {
       doTheHaircut(random)
       customer ! Done
       self.reply(Next)
+      println("*************************************REPLY NEXT")
     }
     case Wait ⇒ {
       // No customer
@@ -102,9 +103,9 @@ class WaitingRoom(capacity: Int, barber: ActorRef) extends Actor {
         } else {
           self.reply(Wait)
           /**
-           * cannot be detected
+           * BUG: cannot be detected
            */
-          /*self ! Next*/
+          //self ! Next
         }
       }
     }

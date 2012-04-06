@@ -124,6 +124,7 @@ class TestActorRef(
       if (matchingHead != null && _currentSchedule.isOnlyInHeadOfSchedules(matchingHead)) {
         _currentSchedule.removeFromHeads(matchingHead)
         log("removeFromSchedule: " + envelop.message)
+        log("current schedule: " + _currentSchedule)
         postMessageToMailboxWithoutCheck(message, channel)
         checkForDeliveryFromCloud()
       } else {

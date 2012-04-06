@@ -199,34 +199,46 @@ public class Constraint {
 	// return shortResult + "\n";
 	// }
 
+	// public String toString() {
+	// String shortResult = "";
+	// ArrayList<Integer> added = new ArrayList<Integer>();
+	// for (int i = 0; i < events1.size(); i++) {
+	// ActorEvent event1 = (ActorEvent) events1.get(i);
+	// ArrayList<Integer> shouldPrint = new ArrayList<Integer>();
+	// for (int j = i + 1; j < events2.size(); j++) {
+	// if (HBRel[i][j] == HappensBefore.Y && !events2.get(j).causallyRelatedTo(event1)) {
+	// boolean redundant = false;
+	// for (int k = i + 1; k < j; k++) {
+	// if (shouldPrint.contains(Integer.valueOf(k)) && HBRel[k][j] == HappensBefore.Y) {
+	// redundant = true;
+	// break;
+	// }
+	// }
+	// if (!redundant)
+	// shouldPrint.add(j);
+	// }
+	// }
+	// if (shouldPrint.size() > 0) {
+	// shortResult += event1.toString() + "->";
+	// for (Integer index : shouldPrint) {
+	// shortResult += events2.get(index).toString() + ",";
+	// }
+	// shortResult += "\n";
+	// }
+	//
+	// }
+	// return shortResult + "\n";
+	// }
 	public String toString() {
 		String shortResult = "";
-		ArrayList<Integer> added = new ArrayList<Integer>();
-		for (int i = 0; i < events1.size(); i++) {
-			ActorEvent event1 = (ActorEvent) events1.get(i);
-			ArrayList<Integer> shouldPrint = new ArrayList<Integer>();
-			for (int j = i + 1; j < events2.size(); j++) {
-				if (HBRel[i][j] == HappensBefore.Y && !events2.get(j).causallyRelatedTo(event1)) {
-					boolean redundant = false;
-					for (int k = i + 1; k < j; k++) {
-						if (shouldPrint.contains(Integer.valueOf(k)) && HBRel[k][j] == HappensBefore.Y) {
-							redundant = true;
-							break;
-						}
-					}
-					if (!redundant)
-						shouldPrint.add(j);
-				}
-			}
-			if (shouldPrint.size() > 0) {
-				shortResult += "[" + event1.toString() + "->";
-				for (Integer index : shouldPrint) {
-					shortResult += events2.get(index).toString() + ",";
-				}
-				shortResult += "]";
-			}
-
+		int i = 0;
+		for (i = 0; i < events1.size() - 1; i++) {
+			shortResult += events1.get(i).toString() + "->";
 		}
+		if (i < events1.size())
+			shortResult += events1.get(i).toString();
+
 		return shortResult + "\n";
 	}
+
 }
