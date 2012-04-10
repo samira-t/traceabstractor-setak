@@ -23,11 +23,12 @@ import akka.setak.TestConfig._
 class TestActorRef(
   private[this] val actorFactory: () ⇒ Actor,
   val _homeAddress: Option[InetSocketAddress])(implicit val testActorRefFactory: TestActorRefFactory,
-                                               implicit private val anonymousSchedule: TestSchedule,
-                                               implicit val traceMonitorActor: ActorRef)
+    implicit private val anonymousSchedule: TestSchedule,
+    implicit val traceMonitorActor: ActorRef)
   extends LocalActorRef(actorFactory, _homeAddress, false) {
   import MessageEventEnum._
 
+  implicit var actorRef = this
   /**
    * A container for the messages that should be posted to the mailbox later
    */
@@ -51,12 +52,16 @@ class TestActorRef(
    * Callback for the Dispatcher. Informs the monitor actor about processing a message.
    */
   override def invoke(messageHandle: MessageInvocation): Unit = {
+    var message = messageHandle.message
     try {
-      super.invoke(messageHandle)
+      if (messageHandle.message.isInstanceOf[FutureMessage]) {
+        message = message.asInstanceOf[FutureMessage].message
+        super.invoke(MessageInvocation(messageHandle.receiver, message, messageHandle.channel))
+      } else super.invoke(messageHandle)
     } finally {
-      traceMonitorActor ! AsyncMessageEvent(new RealEnvelop(messageHandle.receiver, messageHandle.message, messageHandle.channel), MessageEventEnum.Processed)
+      traceMonitorActor ! AsyncMessageEvent(createRealEnvelop(messageHandle.message, messageHandle.channel), MessageEventEnum.Processed)
       //checkForDeliveryFromCloud()
-      log("sent processing" + messageHandle.message)
+      log("sent processing" + message + "," + messageHandle.channel)
 
     }
   }
@@ -82,6 +87,16 @@ class TestActorRef(
     super.tryTell(message)
   }
 
+  override def ?(message: Any)(implicit channel: UntypedChannel = NullChannel, timeout: Actor.Timeout = Actor.defaultTimeout): ActorCompletableFuture = {
+    val futureMessage = FutureMessage(message, channel)
+    super.?(futureMessage)
+  }
+
+  //  def !?(message: Any)(implicit channel: UntypedChannel = NullChannel, timeout: Actor.Timeout = Actor.defaultTimeout): ActorCompletableFuture = {
+  //    println(channel)
+  //    super.?(TestMessage(message, actorRef))
+  //  }
+
   /**
    * @return reference to the actor object, where the static type matches the factory used inside the
    * constructor. This reference is discarded upon restarting the actor
@@ -105,7 +120,7 @@ class TestActorRef(
    */
   private def postMessageToMailboxWithoutCheck(message: Any, channel: UntypedChannel): Unit = {
     super.postMessageToMailbox(message, channel)
-    traceMonitorActor ! AsyncMessageEvent(new RealEnvelop(this, message, channel), Delivered)
+    traceMonitorActor ! AsyncMessageEvent(createRealEnvelop(message, channel), Delivered)
   }
 
   /**
@@ -116,7 +131,7 @@ class TestActorRef(
    * 3) if the message is somewhere in the schedule other than the head, it keeps the message in the cloud
    */
   private def postMessageBySchedule(message: Any, channel: UntypedChannel) = synchronized {
-    val envelop = new RealEnvelop(this, message, channel)
+    val envelop = createRealEnvelop(message, channel)
 
     if (_currentSchedule.isInSchedule(envelop)) {
       log("is in schedule: " + envelop.message)
@@ -129,7 +144,7 @@ class TestActorRef(
         checkForDeliveryFromCloud()
       } else {
         log("is in schedule and not only in the head: " + envelop.message)
-        _cloudMessages.add(envelop)
+        _cloudMessages.add(new RealEnvelop(this, message, channel))
       }
     } else {
       postMessageToMailboxWithoutCheck(message, channel)
@@ -178,7 +193,7 @@ class TestActorRef(
     timeout: Long,
     channel: UntypedChannel): ActorCompletableFuture = {
     val future = super.postMessageToMailboxAndCreateFutureResultWithTimeout(message, timeout, channel)
-    traceMonitorActor ! AsyncMessageEvent(new RealEnvelop(this, message, future.asInstanceOf[ActorCompletableFuture]), Delivered)
+    traceMonitorActor ! AsyncMessageEvent(createRealEnvelop(message, future.asInstanceOf[ActorCompletableFuture]), Delivered)
     future
   }
 
@@ -190,10 +205,35 @@ class TestActorRef(
     channel: UntypedChannel): ActorCompletableFuture = if (isRunning) {
     val future = channel match {
       case f: ActorCompletableFuture ⇒ f
-      case _                         ⇒ new ActorCompletableFuture(timeout)(dispatcher)
+      case _ ⇒ new ActorCompletableFuture(timeout)(dispatcher)
     }
     future
   } else throw new ActorInitializationException("Actor has not been started, you need to invoke 'actor' before using it")
+
+  //  private def isInSchedule(envelop: RealEnvelop) = {
+  //    var newEnvelop = envelop
+  //    if (envelop.message.isInstanceOf[TestMessage]) {
+  //      newEnvelop._message = envelop.message.asInstanceOf[TestMessage].message
+  //    }
+  //    _currentSchedule.isInSchedule(newEnvelop)
+  //  }
+  //
+  //  private def getmatchingTestMessageInScheduleHead(envelop: RealEnvelop) = {
+  //    var newEnvelop = envelop
+  //    if (envelop.message.isInstanceOf[TestMessage]) {
+  //      newEnvelop._message = envelop.message.asInstanceOf[TestMessage].message
+  //    }
+  //    _currentSchedule.matchingHead(newEnvelop)
+  //
+  //  }
+
+  private def createRealEnvelop(message: Any, channel: UntypedChannel): RealEnvelop = {
+    if (message.isInstanceOf[FutureMessage]) {
+      log(message.asInstanceOf[FutureMessage].message + "," + message.asInstanceOf[FutureMessage].senderActor)
+      return new RealEnvelop(this, message.asInstanceOf[FutureMessage].message, message.asInstanceOf[FutureMessage].senderActor)
+    } else return new RealEnvelop(this, message, channel)
+
+  }
 
   /**
    * It checks the position of the message in the schedule schedule:
@@ -205,7 +245,7 @@ class TestActorRef(
    */
   private def postMessageAndCreateFutureBySchedule(message: Any, timeout: Long, channel: UntypedChannel): ActorCompletableFuture = synchronized {
 
-    var envelop = new RealEnvelop(this, message, channel)
+    var envelop = createRealEnvelop(message, channel)
 
     if (_currentSchedule.isInSchedule(envelop)) {
       val matchingHead = _currentSchedule.matchingHead(envelop)
@@ -272,7 +312,8 @@ class TestActorRef(
     while (breakLoop) {
       breakLoop = false
       for (envelop ← _cloudMessages if !breakLoop) {
-        val matchingHead = _currentSchedule.matchingHead(envelop)
+        val scheduleEnvelop = createRealEnvelop(envelop._message, envelop.sender)
+        val matchingHead = _currentSchedule.matchingHead(scheduleEnvelop)
         if (matchingHead != null && _currentSchedule.isOnlyInHeadOfSchedules(matchingHead)) {
           _cloudMessages.-=(envelop)
           log("removed from cloud " + _cloudMessages.size)
@@ -361,7 +402,7 @@ class TestActorRef(
 
   def actorOf[T <: Actor](factory: ⇒ T) = testActorRefFactory.actorOf(factory)
 
-  private var debug = false
+  private var debug = true
   private def log(s: String) = if (debug) println(s)
 
 }

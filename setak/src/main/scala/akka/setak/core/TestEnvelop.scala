@@ -6,6 +6,7 @@ import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.HashSet
 import akka.actor.UntypedChannel
 import akka.setak.Commons._
+import akka.actor.ActorRef
 
 case class RealEnvelop(_reciever: UntypedChannel, _message: Any, _sender: UntypedChannel) {
   def receiver = _reciever
@@ -15,7 +16,7 @@ case class RealEnvelop(_reciever: UntypedChannel, _message: Any, _sender: Untype
   def ==(otherEnvelop: RealEnvelop): Boolean =
     (receiver == otherEnvelop.receiver) && (sender == otherEnvelop.sender) && (message == otherEnvelop.message)
 }
-case class TestMessage(message: Any, senderActor: TestActorRef)
+case class FutureMessage(message: Any, senderActor: UntypedChannel)
 
 /**
  * This enumeration defines two different kinds of the events for the

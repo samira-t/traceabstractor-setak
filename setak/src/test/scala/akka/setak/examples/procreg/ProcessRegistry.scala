@@ -5,6 +5,7 @@ import akka.actor.Actor._
 import java.util.Random
 import akka.setak.core.TestActorRef
 import scala.collection.mutable.{ HashMap, HashSet }
+import akka.setak.core.FutureMessage
 
 /**
  * @author Samira Tasharofi
@@ -67,12 +68,12 @@ class Client(server: ActorRef, runTime: ActorRef, ets: ActorRef) extends Actor {
   }
 
   def reg(name: String, pid: Int) {
-    var result = (ets ? (InsertNewForward(name, pid))).mapTo[Boolean].get
+    var result = (ets ? InsertNewForward(name, pid)).mapTo[Boolean].get
     if (!result) {
       var pidInTable = (server ? Where(name)).mapTo[Int].get
       if (pidInTable == -1) {
         (server ? Audit(name)).get
-        result = (ets ? (InsertNewForward(name, pid))).mapTo[Boolean].get
+        result = (ets ? InsertNewForward(name, pid)).mapTo[Boolean].get
         if (!result) {
           pidInTable = (server ? Where(name)).mapTo[Int].get
           if (!result && pidInTable == -1) {

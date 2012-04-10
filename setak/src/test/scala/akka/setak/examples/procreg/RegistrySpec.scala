@@ -58,13 +58,14 @@ class RegistrySpec extends SetakFlatSpec {
     client1 = actorOf(new Client(server, runTime, ets)).start
     client2 = actorOf(new Client(server, runTime, ets)).start
 
-    val insert1 = testEnvelopPattern(anyActorRef, ets, { case InsertNewForward(_, _) ⇒ })
-    val insert2 = testEnvelopPattern(anyActorRef, ets, { case InsertNewForward(_, _) ⇒ })
+    val insert1 = testEnvelopPattern(client1, ets, { case InsertNewForward(_, _) ⇒ })
+    val insert2 = testEnvelopPattern(client2, ets, { case InsertNewForward(_, _) ⇒ })
+    //val backward = testEnvelopPattern(server, ets, { case InsertNewBackward(_, _) ⇒ })
 
     val reg1 = testEnvelopPattern(anyActorRef, client1, { case Register(_, _) ⇒ })
     val reg2 = testEnvelopPattern(anyActorRef, client2, { case Register(_, _) ⇒ })
 
-    setSchedule(insert1 -> insert2)
+    setSchedule(insert2 -> insert1)
 
     val pid = (runTime ? spawn("pName")).mapTo[Int].get
     (runTime ? kill(pid)).get
