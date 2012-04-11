@@ -19,33 +19,39 @@ class ScheduleGenerator(mapper: EnvelopMapper) {
       while (curLine.indexOf("(") >= 0) {
         val event = curLine.substring(curLine.indexOf("(") + 1, curLine.indexOf(")"))
         //println("event " + event)
-        var envelop: TestEnvelop = null
-        if (!definedEnvelops.contains(event)) {
-          //println("event " + event)
-          val eventParts = event.split(",")
-          recStr = eventParts(1)
-          val sender = mapper.getActorRef(eventParts(0))
-          val receiver = mapper.getActorRef(eventParts(1))
-          if (eventParts(2).contains("_")) {
-            envelop = test.testEnvelopPattern(sender, receiver, mapper.getPFContent(eventParts(2)))
+        if (!event.contains("!")) {
+          var envelop: TestEnvelop = null
+          if (!definedEnvelops.contains(event)) {
+            //println("event " + event)
+            val eventParts = event.split(",")
+            recStr = eventParts(1)
+            val sender = mapper.getActorRef(eventParts(0))
+            val receiver = mapper.getActorRef(eventParts(1))
+            if (sender != null && receiver != null) {
+              if (eventParts(2).contains("_")) {
+                envelop = test.testEnvelopPattern(sender, receiver, mapper.getPFContent(eventParts(2)))
+              } else {
+                envelop = test.testEnvelop(sender, receiver, mapper.getContent(eventParts(2)))
+              }
+              definedEnvelops.put(event, envelop)
+            }
           } else {
-            envelop = test.testEnvelop(sender, receiver, mapper.getContent(eventParts(2)))
-          }
-          definedEnvelops.put(event, envelop)
-        } else {
-          envelop = definedEnvelops.get(event).get
+            envelop = definedEnvelops.get(event).get
 
-        }
-        //if (recStr.equals("2")) println(curLine)
-        if (sequence == null) sequence = envelop
-        else {
-          if (curLine.startsWith("->")) {
-            sequence ->= envelop
-            //if (recStr.equals("2")) println(sequence)
-          } else if (curLine.startsWith(",(")) {
-            sequence.tails.add(envelop)
-            //if (recStr.equals("2")) println(sequence)
-          } else println("error")
+          }
+          //if (recStr.equals("2")) println(curLine)
+          if (envelop != null) {
+            if (sequence == null) sequence = envelop
+            else {
+              if (curLine.startsWith("->")) {
+                sequence ->= envelop
+                //if (recStr.equals("2")) println(sequence)
+              } else if (curLine.startsWith(",(")) {
+                sequence.tails.add(envelop)
+                //if (recStr.equals("2")) println(sequence)
+              } else println("error")
+            }
+          }
         }
         curLine = curLine.substring(curLine.indexOf(")") + 1)
 

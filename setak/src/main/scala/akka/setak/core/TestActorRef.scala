@@ -23,8 +23,8 @@ import akka.setak.TestConfig._
 class TestActorRef(
   private[this] val actorFactory: () ⇒ Actor,
   val _homeAddress: Option[InetSocketAddress])(implicit val testActorRefFactory: TestActorRefFactory,
-    implicit private val anonymousSchedule: TestSchedule,
-    implicit val traceMonitorActor: ActorRef)
+                                               implicit private val anonymousSchedule: TestSchedule,
+                                               implicit val traceMonitorActor: ActorRef)
   extends LocalActorRef(actorFactory, _homeAddress, false) {
   import MessageEventEnum._
 
@@ -205,7 +205,7 @@ class TestActorRef(
     channel: UntypedChannel): ActorCompletableFuture = if (isRunning) {
     val future = channel match {
       case f: ActorCompletableFuture ⇒ f
-      case _ ⇒ new ActorCompletableFuture(timeout)(dispatcher)
+      case _                         ⇒ new ActorCompletableFuture(timeout)(dispatcher)
     }
     future
   } else throw new ActorInitializationException("Actor has not been started, you need to invoke 'actor' before using it")
