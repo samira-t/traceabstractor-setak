@@ -30,7 +30,17 @@ public class ActorScheduleAbstractor extends ScheduleAbstractor {
 					if (event == null)
 						Logger.logInfo(prevLine);
 					trace.add(event);
-					while ((line = reader.readLine()) != null && !line.startsWith("##")) {
+					while ((line = reader.readLine()) != null && !line.startsWith("##BUG:")) {
+						if (line.startsWith("##BUGGY_ACTORS")) {
+							line = reader.readLine();
+							while (line != null && !line.startsWith("##"))
+								line = reader.readLine();
+						}
+						if (line.startsWith("##UNDELIVERED_MSGS:"))
+							line = reader.readLine();
+						else if (line == null || line.startsWith("##BUG:"))
+							break;
+
 						event = (ActorEvent) parseLineForEvent(line);
 						if (event == null)
 							Logger.logInfo(prevLine);
@@ -660,6 +670,7 @@ public class ActorScheduleAbstractor extends ScheduleAbstractor {
 	@Override
 	Event parseLineForEvent(String line) {
 		String[] eventParts = line.split(":");
+		System.err.println(line);
 		String vc = eventParts[5].substring(1, eventParts[5].length() - 1);
 		String[] msgVc = (vc.length() > 0) ? Arrays.copyOfRange(vc.split(", "), 0, 11) : null;
 		if (eventParts.length > 6) {

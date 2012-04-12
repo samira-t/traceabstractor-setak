@@ -63,7 +63,7 @@ public class Main {
 
 					&& traceFile.length() < (1024 * 1024 * 20) && traceFile.getName().contains("eca") && !processedFiles.contains(subject)
 
-					&& traceFile.getName().contains("sleeping")) {
+					&& traceFile.getName().contains("procreg_")) {
 				// the
 				processedFiles.add(subject);
 
