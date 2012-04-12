@@ -9,7 +9,7 @@ import akka.setak.Commons._
 import scala.collection.mutable.ArrayBuffer
 import akka.setak.core.TestEnvelopSequence
 import akka.setak.SetakTest
-import test.scala.akka.setak.EnvelopMapper
+import akka.setak.EnvelopMapper
 
 class BarberMapper(implicit test: BarberSpec) extends EnvelopMapper {
 

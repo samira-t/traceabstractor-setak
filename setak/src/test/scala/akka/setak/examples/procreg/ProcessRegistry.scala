@@ -24,11 +24,12 @@ case class Down(pid: Int)
 class RegistryServer(ets: ActorRef, runTime: ActorRef) extends Actor {
   def receive() = {
     case Reg(pid: Int) ⇒ {
-      val monitor = new Monitor(pid, runTime, self)
+      Logger.log("Reg(pid: Int)")
+      val monitor = actorOf(new Monitor(pid, runTime, self)).start()
       val result = (ets ? InsertNewBackward(pid, monitor)).get
     }
     case Audit(name) ⇒ {
-
+      Logger.log("Audit(name)")
       val pid = (ets ? Lookup(name)).mapTo[Int].get
       val alive = (runTime ? isProcessAlive(pid)).mapTo[Boolean].get
       if (!alive) {
@@ -37,18 +38,22 @@ class RegistryServer(ets: ActorRef, runTime: ActorRef) extends Actor {
       self.reply()
     }
     case Down(pid: Int) ⇒ {
+      Logger.log("Down(pid: Int)" + self.channel)
       if ((ets ? GetMatch(pid)).get != None)
         (ets ? DeleteEntry(pid)).get
     }
     case Unreg(name) ⇒ {
+      Logger.log("Unreg(name)")
       val pid = (ets ? Lookup(name)).mapTo[Int].get
       (ets ? DeleteEntry(pid)).get
       self.reply()
     }
     case Where(name) ⇒ {
       val pid = (ets ? Lookup(name)).mapTo[Int].get
+      Logger.log("Where(name) ")
       if ((runTime ? isProcessAlive(pid)).mapTo[Boolean].get) self.reply(pid)
       else self.reply(-1)
+      //Logger.log("Where(name) ")
     }
   }
 }
@@ -60,11 +65,12 @@ case class Kill(pid: Int)
 class Client(server: ActorRef, runTime: ActorRef, ets: ActorRef) extends Actor {
   var pid = -1
   var name = ""
+  @volatile
   var exceptionIsThrown = false
   def receive() = {
     case Spawn(name)         ⇒ self.reply((runTime ? spawn(name)).get)
     case Kill(pid)           ⇒ (runTime ? kill(pid)).get
-    case Register(name, pid) ⇒ println("register"); reg(name, pid); self.stop
+    case Register(name, pid) ⇒ reg(name, pid); self.stop
   }
 
   def reg(name: String, pid: Int) {
@@ -72,13 +78,14 @@ class Client(server: ActorRef, runTime: ActorRef, ets: ActorRef) extends Actor {
     if (!result) {
       var pidInTable = (server ? Where(name)).mapTo[Int].get
       if (pidInTable == -1) {
+        /**/
         (server ? Audit(name)).get
         result = (ets ? InsertNewForward(name, pid)).mapTo[Boolean].get
         if (!result) {
           pidInTable = (server ? Where(name)).mapTo[Int].get
           if (!result && pidInTable == -1) {
             exceptionIsThrown = true
-            println("*************************************88Exception")
+            Logger.log("*************************************88Exception")
             //self.stop
           }
         } else {
@@ -91,52 +98,66 @@ class Client(server: ActorRef, runTime: ActorRef, ets: ActorRef) extends Actor {
   }
 }
 
-class Monitor(pid: Int, runTime: ActorRef, server: ActorRef) {
-  private var alive = (runTime ? isProcessAlive(pid)).mapTo[Boolean].get
-  while (alive) {
-    Thread.sleep(1000)
-    alive = (runTime ? isProcessAlive(pid)).mapTo[Boolean].get
+class Monitor(pid: Int, runTime: ActorRef, server: ActorRef) extends Actor {
+  override def preStart() {
+    self ! 'Start
   }
-  server ! Down(pid)
+  def receive = {
+    case 'Start ⇒
+      var alive = (runTime ? isProcessAlive(pid)).mapTo[Boolean].get
+      while (alive) {
+        Thread.sleep(100)
+        alive = (runTime ? isProcessAlive(pid)).mapTo[Boolean].get
+      }
+      server ! Down(pid)
+      Logger.log("Down sent")
+      self.stop()
+  }
 }
 
 case class InsertNewForward(name: String, pid: Int)
-case class InsertNewBackward(pid: Int, monitor: Monitor)
+case class InsertNewBackward(pid: Int, monitor: ActorRef)
 case class Lookup(name: String)
 case class GetMatch(pid: Int)
 case class DeleteEntry(pid: Int)
 
 class ETS extends Actor {
   var forwardTable = HashMap[String, Int]()
-  var backwardTable = HashMap[Int, Monitor]()
+  var backwardTable = HashMap[Int, ActorRef]()
   def receive() = {
     case InsertNewForward(name, pid) ⇒ {
-      println("insert forward")
+      Logger.log("insert forward")
       if (forwardTable.contains(name)) {
         self.reply(false)
       } else {
         forwardTable.+=((name, pid))
         self.reply(true)
+        /**/ //self.reply(false)
       }
     }
     case InsertNewBackward(pid, monitor) ⇒ {
+      Logger.log("InsertNewBackward")
       if (backwardTable.contains(pid)) {
         self.reply(false)
       } else {
         backwardTable.+=((pid, monitor))
+        /**/
         self.reply(true)
       }
     }
     case Lookup(name) ⇒ {
+      Logger.log("Lookup(name) ")
       forwardTable.get(name) match {
         case None      ⇒ self.reply(-1)
         case Some(pid) ⇒ self.reply(pid)
       }
     }
     case GetMatch(pid) ⇒ {
+      Logger.log("GetMatch")
       self.reply(backwardTable.get(pid))
     }
     case DeleteEntry(pid) ⇒ {
+      Logger.log("DeleteEntry")
       backwardTable.get(pid) match {
         case None ⇒ self.reply()
         case Some(monitor) ⇒ {
@@ -187,5 +208,12 @@ class RunTime extends Actor {
       dead.clear()
       self.reply()
     }
+  }
+}
+
+object Logger {
+  var debug = false
+  def log(s: String) {
+    if (debug) println(s)
   }
 }

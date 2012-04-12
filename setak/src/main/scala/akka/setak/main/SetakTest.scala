@@ -17,6 +17,9 @@ import scala.collection.mutable.HashSet
 
 trait SetakTest {
 
+  var scheduleGenerator: ScheduleGenerator = _
+  var reader: ScheduleFileReader = _
+
   implicit var traceMonitorActor = akka.actor.Actor.actorOf[TraceMonitorActor].start()
   implicit var testExecutionManager = new TestExecutionManager()
   implicit var testEnvelopUtil = new TestEnvelopUtil()

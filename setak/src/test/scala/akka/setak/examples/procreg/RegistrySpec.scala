@@ -12,16 +12,41 @@ import akka.setak.SetakJUnit
 import akka.setak.SetakFlatSpec
 import akka.setak.Commons._
 import akka.setak.SetakTest
+import akka.setak.ScheduleFileReader
+import akka.setak.ScheduleGenerator
 
 class RegistrySpec extends SetakFlatSpec {
 
-  var server: ActorRef = _
-  var ets: ActorRef = _
-  var runTime: ActorRef = _
+  implicit def test = this
 
-  var client1: ActorRef = _
-  var client2: ActorRef = _
-  var client3: ActorRef = _
+  var server: TestActorRef = _
+  var ets: TestActorRef = _
+  var runTime: TestActorRef = _
+
+  var client1: TestActorRef = _
+  var client2: TestActorRef = _
+  var client3: TestActorRef = _
+
+  override def setUp() {
+    val traceFile = scala.io.Source.fromFile("./src/test/scala/akka/setak/examples/procreg/procreg-orig.txt")
+    reader = new ScheduleFileReader(traceFile)
+
+  }
+
+  private def setUpTest() {
+    this.superBeforeEach()
+    runTime = actorOf[RunTime].start
+    ets = actorOf[ETS].start
+    server = actorOf(new RegistryServer(ets, runTime)).start
+
+    client1 = actorOf(new Client(server, runTime, ets)).start
+    client2 = actorOf(new Client(server, runTime, ets)).start
+
+    val mapper = new RegistryMapper()
+
+    scheduleGenerator = new ScheduleGenerator(mapper)
+
+  }
 
   //  "a simple test" should "pass" in {
   //
@@ -49,35 +74,162 @@ class RegistrySpec extends SetakFlatSpec {
   //
   //  }
 
-  "a test" should "fail" in {
-
-    runTime = actorOf[RunTime].start
-    ets = actorOf[ETS].start
-    server = actorOf(new RegistryServer(ets, runTime)).start
-
-    client1 = actorOf(new Client(server, runTime, ets)).start
-    client2 = actorOf(new Client(server, runTime, ets)).start
-
-    val insert1 = testEnvelopPattern(client1, ets, { case InsertNewForward(_, _) ⇒ })
-    val insert2 = testEnvelopPattern(client2, ets, { case InsertNewForward(_, _) ⇒ })
-    //val backward = testEnvelopPattern(server, ets, { case InsertNewBackward(_, _) ⇒ })
-
-    val reg1 = testEnvelopPattern(anyActorRef, client1, { case Register(_, _) ⇒ })
-    val reg2 = testEnvelopPattern(anyActorRef, client2, { case Register(_, _) ⇒ })
-
-    setSchedule(insert2 -> insert1)
-
-    val pid = (runTime ? spawn("pName")).mapTo[Int].get
-    (runTime ? kill(pid)).get
-
-    client1 ! Register("pName", pid)
-    client2 ! Register("pName", pid)
-
-    afterAllMessages {
-      println("finished")
-    }
+  private def setTraceFileReader(original: Boolean) {
+    var traceFileName = if (original) ("./src/test/scala/akka/setak/examples/procreg/procreg-orig.txt") else
+      ("./src/test/scala/akka/setak/examples/procreg/procreg-red.txt")
+    reader = new ScheduleFileReader(scala.io.Source.fromFile(traceFileName))
 
   }
+
+  "a test of reduced" should "fail" in {
+    println("a test of reduced shoudl fail")
+    setTraceFileReader(false)
+
+    val schedulesLinesMap = reader.getSchedulesLines("EXCEPTION")
+    var counter = 0
+    for (key ← schedulesLinesMap.keySet) {
+      setUpTest()
+      var scheduleLines = schedulesLinesMap.get(key).get
+      println(key)
+      counter += 1
+      println("counter = " + counter)
+      val schedule = scheduleGenerator.getSchedule(scheduleLines)
+      //println("line sheudles=" + scheduleLines)
+      setSchedule(schedule)
+      //println("line Number=" + key)
+
+      val pid = (runTime ? spawn("pName")).mapTo[Int].get
+      (runTime ? kill(pid)).get
+
+      client1 ! Register("pName", pid)
+      client2 ! Register("pName", pid)
+
+      afterAllMessages {
+        assert(client1.actorObject[Client].exceptionIsThrown || client2.actorObject[Client].exceptionIsThrown)
+      }
+      tearDownTest()
+    }
+  }
+
+  "a test of reduced" should "pass" in {
+    println("a test of reduced should pass")
+    setTraceFileReader(false)
+
+    val schedulesLinesMap = reader.getSchedulesLines("NO_BUG")
+    var counter = 0
+    for (key ← schedulesLinesMap.keySet) {
+      setUpTest()
+      var scheduleLines = schedulesLinesMap.get(key).get
+      println(key)
+      counter += 1
+      println("counter = " + counter)
+      val schedule = scheduleGenerator.getSchedule(scheduleLines)
+      //println("line sheudles=" + scheduleLines)
+      setSchedule(schedule)
+      //println("line Number=" + key)
+
+      val pid = (runTime ? spawn("pName")).mapTo[Int].get
+      (runTime ? kill(pid)).get
+
+      client1 ! Register("pName", pid)
+      client2 ! Register("pName", pid)
+
+      afterAllMessages {
+        assert(!client1.actorObject[Client].exceptionIsThrown && !client2.actorObject[Client].exceptionIsThrown)
+      }
+      tearDownTest()
+    }
+  }
+
+  "a test of original" should "fail" in {
+    println("a test of original should fail")
+    setTraceFileReader(true)
+
+    val schedulesLinesMap = reader.getSchedulesLines("EXCEPTION")
+    var counter = 0
+    for (key ← schedulesLinesMap.keySet) {
+      setUpTest()
+      var scheduleLines = schedulesLinesMap.get(key).get
+      println(key)
+      counter += 1
+      println("counter = " + counter)
+      val schedule = scheduleGenerator.getSchedule(scheduleLines)
+      println("line sheudles=" + scheduleLines)
+      setSchedule(schedule)
+      println("line Number=" + key)
+
+      val pid = (runTime ? spawn("pName")).mapTo[Int].get
+      (runTime ? kill(pid)).get
+
+      client1 ! Register("pName", pid)
+      client2 ! Register("pName", pid)
+      println("line Number=" + key)
+
+      afterAllMessages {
+        assert(client1.actorObject[Client].exceptionIsThrown || client2.actorObject[Client].exceptionIsThrown)
+      }
+      tearDownTest()
+    }
+  }
+
+  "a test of original" should "pass" in {
+    println("a test of original should pass")
+
+    setTraceFileReader(true)
+
+    val schedulesLinesMap = reader.getSchedulesLines("NO_BUG")
+    var counter = 0
+    for (key ← schedulesLinesMap.keySet) {
+      setUpTest()
+      var scheduleLines = schedulesLinesMap.get(key).get
+      println(key)
+      counter += 1
+      println("counter = " + counter)
+      val schedule = scheduleGenerator.getSchedule(scheduleLines)
+      //println("line sheudles=" + scheduleLines)
+      setSchedule(schedule)
+      //println("line Number=" + key)
+
+      val pid = (runTime ? spawn("pName")).mapTo[Int].get
+      (runTime ? kill(pid)).get
+
+      client1 ! Register("pName", pid)
+      client2 ! Register("pName", pid)
+
+      afterAllMessages {
+        assert(!client1.actorObject[Client].exceptionIsThrown && !client2.actorObject[Client].exceptionIsThrown)
+      }
+      tearDownTest()
+    }
+  }
+  private def tearDownTest() {
+    server.stop()
+    ets.stop()
+    runTime.stop()
+    client1.stop()
+    client2.stop()
+
+    this.superAfterEach()
+  }
+
+  //    val insert1 = testEnvelopPattern(client1, ets, { case InsertNewForward(_, _) ⇒ })
+  //    val insert2 = testEnvelopPattern(client2, ets, { case InsertNewForward(_, _) ⇒ })
+  //    //val backward = testEnvelopPattern(server, ets, { case InsertNewBackward(_, _) ⇒ })
+  //
+  //    val reg1 = testEnvelopPattern(anyActorRef, client1, { case Register(_, _) ⇒ })
+  //    val reg2 = testEnvelopPattern(anyActorRef, client2, { case Register(_, _) ⇒ })
+  //
+  //    setSchedule(insert2 -> insert1)
+  //
+  //    val pid = (runTime ? spawn("pName")).mapTo[Int].get
+  //    (runTime ? kill(pid)).get
+  //
+  //    client1 ! Register("pName", pid)
+  //    client2 ! Register("pName", pid)
+  //
+  //    afterAllMessages {
+  //      println("finished")
+  //    }
 
   //  @org.junit.Test
   //  def testBugScenario1 {

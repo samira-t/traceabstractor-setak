@@ -12,8 +12,8 @@ import akka.setak.SetakJUnit
 import akka.setak.SetakFlatSpec
 import akka.setak.Commons._
 import akka.setak.SetakTest
-import test.scala.akka.setak.ScheduleFileReader
-import test.scala.akka.setak.ScheduleGenerator
+import akka.setak.ScheduleFileReader
+import akka.setak.ScheduleGenerator
 
 //
 //
@@ -50,9 +50,6 @@ class BarberSpec extends SetakFlatSpec {
   var customers = new Array[TestActorRef](customerNum)
   var waitingRoom: TestActorRef = _
   var barber: TestActorRef = _
-
-  var scheduleGenerator: ScheduleGenerator = _
-  var reader: ScheduleFileReader = _
 
   //  //messages to waiting room
   //  var enterc1w: TestEnvelop = _

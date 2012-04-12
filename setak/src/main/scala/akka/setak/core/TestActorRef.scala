@@ -93,7 +93,7 @@ class TestActorRef(
   }
 
   //  def !?(message: Any)(implicit channel: UntypedChannel = NullChannel, timeout: Actor.Timeout = Actor.defaultTimeout): ActorCompletableFuture = {
-  //    println(channel)
+  //    log(channel)
   //    super.?(TestMessage(message, actorRef))
   //  }
 
@@ -144,6 +144,7 @@ class TestActorRef(
         checkForDeliveryFromCloud()
       } else {
         log("is in schedule and not only in the head: " + envelop.message)
+        logCloud("added to cloud" + message)
         _cloudMessages.add(new RealEnvelop(this, message, channel))
       }
     } else {
@@ -164,7 +165,7 @@ class TestActorRef(
     //          _cloudMessages.add(envelop)
     //        }
     //      }
-    //      case _ ⇒ _cloudMessages.add(envelop) //; println("added to cloud" + envelop)
+    //      case _ ⇒ _cloudMessages.add(envelop) //; log("added to cloud" + envelop)
     //    }
 
   }
@@ -261,7 +262,8 @@ class TestActorRef(
         val future = createFuture(newTimeout, channel)
         envelop = new RealEnvelop(this, message, future)
         _cloudMessages.add(envelop)
-        log("added to cloud" + envelop + " " + newTimeout + " " + timeout)
+        logCloud("added to cloud" + envelop + " " + newTimeout + " " + timeout)
+        logCloud(_currentSchedule.toString())
         future
 
       }
@@ -312,11 +314,11 @@ class TestActorRef(
     while (breakLoop) {
       breakLoop = false
       for (envelop ← _cloudMessages if !breakLoop) {
-        val scheduleEnvelop = createRealEnvelop(envelop._message, envelop.sender)
+        val scheduleEnvelop = createRealEnvelop(envelop.message, envelop.sender)
         val matchingHead = _currentSchedule.matchingHead(scheduleEnvelop)
         if (matchingHead != null && _currentSchedule.isOnlyInHeadOfSchedules(matchingHead)) {
           _cloudMessages.-=(envelop)
-          log("removed from cloud " + _cloudMessages.size)
+          logCloud("removed from cloud " + _cloudMessages.size + " " + envelop)
           val result = _currentSchedule.removeFromHeads(matchingHead)
           postMessageToMailboxWithoutCheck(envelop.message, envelop.sender)
           breakLoop = true
@@ -327,6 +329,7 @@ class TestActorRef(
     if (_currentSchedule.isEmpty) {
       for (envelop ← _cloudMessages) {
         _cloudMessages.-=(envelop)
+        logCloud("removed from cloud " + _cloudMessages.size + " " + envelop)
         postMessageToMailboxWithoutCheck(envelop.message, envelop.sender)
       }
     }
@@ -359,7 +362,7 @@ class TestActorRef(
       var matchingHead = _currentSchedule.matchingHead(envelop)
       if (matchingHead != null && _currentSchedule.isOnlyInHeadOfSchedules(matchingHead)) {
         _cloudMessages.-=(envelop)
-        log("removed from cloud " + _cloudMessages.size)
+        logCloud("removed from cloud " + _cloudMessages.size)
         val result = _currentSchedule.removeFromHeads(matchingHead)
         postMessageToMailboxWithoutCheck(envelop.message, envelop.sender)
         return true
@@ -402,12 +405,14 @@ class TestActorRef(
 
   def actorOf[T <: Actor](factory: ⇒ T) = testActorRefFactory.actorOf(factory)
 
-  private var debug = true
+  private var debug = false
+  private var cloudDebug = false
   private def log(s: String) = if (debug) println(s)
+  private def logCloud(s: String) = if (cloudDebug) println(s)
 
 }
 
-object TestActorRef {
-  implicit def toTestAtorRef(actorRef: UntypedChannel) = actorRef.asInstanceOf[TestActorRef]
-}
+//object TestActorRef {
+//  implicit def toTestAtorRef(actorRef: UntypedChannel) = actorRef.asInstanceOf[TestActorRef]
+//}
 
